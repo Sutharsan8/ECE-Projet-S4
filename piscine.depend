@@ -87,33 +87,90 @@
 	<iostream>
 	"graphe.h"
 
-1555331028 source:c:\users\ssuth\ece-projet-s4\sommet.cpp
+1555365213 source:c:\users\ssuth\ece-projet-s4\sommet.cpp
 	<iostream>
 	<queue>
 	<stack>
 	<list>
 	<unordered_map>
-	<unordered_set>
 	"sommet.h"
 
-1555331048 c:\users\ssuth\ece-projet-s4\sommet.h
+1555365213 c:\users\ssuth\ece-projet-s4\sommet.h
 	<string>
 	<vector>
 	<unordered_map>
 	<unordered_set>
+	"util/util.h"
+	"couleur.h"
+	"svgfile.h"
 
-1555331208 source:c:\users\ssuth\ece-projet-s4\main.cpp
+1555411586 source:c:\users\ssuth\ece-projet-s4\main.cpp
 	<iostream>
 	"graphe.h"
 
-1555331028 c:\users\ssuth\ece-projet-s4\graphe.h
+1555404760 c:\users\ssuth\ece-projet-s4\graphe.h
 	<string>
 	<unordered_map>
 	<vector>
 	"sommet.h"
+	"util/util.h"
+	"couleur.h"
+	"svgfile.h"
+	"arete.h"
 
-1555331284 source:c:\users\ssuth\ece-projet-s4\graphe.cpp
+1555411630 source:c:\users\ssuth\ece-projet-s4\graphe.cpp
 	<fstream>
 	<iostream>
 	"graphe.h"
+	"sommet.h"
+
+1542798922 c:\users\ssuth\ece-projet-s4\util\util.h
+	<string>
+	<random>
+	<ctime>
+	<iostream>
+	<cstdio>
+
+1542729088 c:\users\ssuth\ece-projet-s4\svg\svgfile.h
+	<string>
+	<fstream>
+	<set>
+
+1542729088 c:\users\ssuth\ece-projet-s4\couleur.h
+	<string>
+	<cstdint>
+
+1555409623 c:\users\ssuth\ece-projet-s4\svgfile.h
+	<string>
+	<fstream>
+	<set>
+
+1555409623 source:c:\users\ssuth\ece-projet-s4\svgfile.cpp
+	"svgfile.h"
+	<iostream>
+	<sstream>
+	"util/util.h"
+
+1555365982 c:\users\ssuth\ece-projet-s4\arete.h
+	"Sommet.h"
+
+1555365982 source:c:\users\ssuth\ece-projet-s4\arete.cpp
+	<iostream>
+	<queue>
+	<stack>
+	<list>
+	<unordered_map>
+	"arete.h"
+	"Sommet.h"
+
+1555365800 c:\users\ssuth\ece-projet-s4\arete_poids.h
+	"Sommet.h"
+
+1555365747 source:c:\users\ssuth\ece-projet-s4\arete_poids.cpp
+	<iostream>
+	<queue>
+	<stack>
+	<list>
+	<unordered_map>
+	"arete_poids.h"
 
