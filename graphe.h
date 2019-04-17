@@ -18,6 +18,8 @@ class graphe
         graphe(std::string, int choix,Svgfile& svgout);
         ~graphe();
         void afficher(int choix) const;
+        void kruskal(std::string,std::string,Svgfile& svgout) const;
+
 
     private:
         /// Le réseau est constitué d'une collection de sommets

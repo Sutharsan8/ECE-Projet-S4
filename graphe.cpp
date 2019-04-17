@@ -3,6 +3,8 @@
 #include "graphe.h"
 #include"sommet.h"
 
+
+
 graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout){
     double tableausommet[50][3];
     double tableauarete[50][3];
@@ -127,8 +129,6 @@ double x2;double y2;
             y2=tableauarete[i][2];
         }
         }
-        std::cout<<x1<<","<<y1<<std::endl;
-
 
         svgout.addLine(x1+500,y1,x2+500,y2,"black");
         svgout.addCircle(x1+500,y1,3,5,"black");
@@ -229,4 +229,143 @@ if(choix==2)
 }
 
 
+void graphe::kruskal(std::string nomFichier,std::string nomFichier2,Svgfile& svgout) const
+{
+    std::ifstream ifs{nomFichier};
+    int ordre;
+    int tableausommet[50][3];
+    int tableauarete[50][3];
+    int tableaupoids[50][3];
+    int tableaukruskal[50][3];
+    int tableauselection[50][3];
+    int id;
+    double poids1,poids2;
+    int sommet1=0;int sommet2=0;
+    int x1,x2,y1,y2;
+    int x,y;
+    ifs >> ordre;
+    for (int i=0; i<ordre; ++i){
+        ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
+        ifs>>x; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
+        ifs>>y; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
+        tableauarete[i][0]=id;
+        tableauarete[i][1]=x;
+        tableauarete[i][2]=y;
+    }
+
+    int id_arete;
+    int s_1,s_2;
+    int taille;
+    ifs>>taille;
+
+    //lecture des aretes
+    for (int i=0; i<taille; ++i)
+    {
+        //lecture des ids des deux extrémités
+          ifs>>id_arete; if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
+          ifs>>s_1;if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
+          ifs>>s_2; if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
+
+        tableausommet[i][0]=id_arete;
+        tableausommet[i][1]=s_1;
+        tableausommet[i][2]=s_2;
+    }
+    std::ifstream ifs2{nomFichier2};
+    int taille1;
+    ifs2 >> taille1;
+    int valeur;
+    ifs2>>valeur;
+
+    //lecture des sommets
+    for (int i=0; i<taille1; ++i)
+    {
+        ifs2>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
+        ifs2>>poids1; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
+        ifs2>>poids2; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
+        tableaupoids[i][0]=id;
+        tableaupoids[i][1]=poids1;
+        tableaupoids[i][2]=poids2;
+    }
+    for(int y=0;y<taille1;++y)
+    for (int i=0; i<taille1; ++i)
+    {
+        if(tableaupoids[i][1]>tableaupoids[i+1][1] && i+1<taille)
+        {
+            int stock[50][3];
+            stock[i][1]=tableaupoids[i][1];//on change juste le poids 1 dont 2ieme colonne
+            tableaupoids[i][1]=tableaupoids[i+1][1];
+            tableaupoids[i+1][1]=stock[i][1];
+            ///
+            stock[i][0]=tableaupoids[i][0];
+            tableaupoids[i][0]=tableaupoids[i+1][0];
+            tableaupoids[i+1][0]=stock[i][0];
+            ///
+            stock[i][2]=tableaupoids[i][2];
+            tableaupoids[i][2]=tableaupoids[i+1][2];
+            tableaupoids[i+1][2]=stock[i][2];
+        }
+    }
+    for(int u=0;u<taille1;++u)
+    {
+        for(int i=0;i<taille1;++i)
+        if(tableaupoids[u][0]==tableausommet[i][0])
+        {
+
+            tableaukruskal[u][0]=tableausommet[i][0];
+            tableaukruskal[u][1]=tableausommet[i][1];
+            tableaukruskal[u][2]=tableausommet[i][2];
+            std::cout<<tableaukruskal[u][0]<<"++++"<<tableaukruskal[u][1]<<"++++"<<tableaukruskal[u][2]<<std::endl;
+        }
+    }
+   /* for(int e=0;e<taille1;++e)
+        for(int i=0;i<3;++i)
+        {
+            tableauselection[e][i]=tableaukruskal[e][i];
+
+        }*/
+
+    int comparer[ordre][2];
+    for(int i=0;i<ordre;++i){
+        comparer[i][0]=tableauarete[i][0];
+        comparer[i][1]=tableauarete[i][0];
+        std::cout<<comparer[i][0]<<"********"<<comparer[i][1]<<std::endl;
+    }
+
+    int finale[ordre-1][2];
+    int f,g;
+    int j=0;
+    int p=0;
+    while(p!=taille1)
+    {
+    f=tableaukruskal[p][1];
+    g=tableaukruskal[p][2];
+    std::cout<<f<<"!"<<g<<std::endl;
+    if(comparer[f][1]==comparer[g][1])
+        p++;
+    else
+    {
+        for(int y=0;y<taille1;++y)
+            {
+                if(comparer[y][1]==f)
+                    comparer[y][1]=g;
+            }
+            comparer[f][1]=g;
+            finale[j][0]=f;
+            finale[j][1]=g;
+            j++;
+    }
+
+    ++p;
+    }
+    for(int h=0;h<ordre-1;++h)
+    {
+        std::cout<<"Sommet 1: "<<finale[h][0]<<"/"<<"Sommet 2: "<<finale[h][1]<<std::endl;
+    }
+
+    for(int h=0;h<ordre;++h)
+    {
+        std::cout<<comparer[h][0]<<"///////\\\\\\\""<<comparer[h][1]<<std::endl;
+    }
+
+}
 graphe::~graphe(){};
