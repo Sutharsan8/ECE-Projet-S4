@@ -8,7 +8,6 @@
 graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<std::vector<double>> sommet_coords,std::vector<std::vector<double>> arete_sommet,std::vector<std::vector<float>>arete_ponderation):m_sommet_coords{sommet_coords},m_arete_sommet{arete_sommet},m_arete_ponderation{arete_ponderation}
 {
     double tableau_Coordonne[50][3];
-
     double tableauarete[50][3];
     double tableaupoids[50][3];
     if(choix==1){
@@ -42,7 +41,6 @@ double x2;double y2;
     }
 
     double id_arete;
-
     double s_1,s_2;
     double taille;
     ifs>>taille;
@@ -54,13 +52,11 @@ double x2;double y2;
           ifs>>id_arete; if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
           ifs>>s_1;if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
           ifs>>s_2; if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
-
          m_arete.insert({id_arete, new Arete{id_arete,s_1,s_2,0,0}});
 
         tableau_Coordonne[i][0]=id_arete;
         tableau_Coordonne[i][1]=s_1;
         tableau_Coordonne[i][2]=s_2;
-
 
         if(m_sommets.find(s_1)!=m_sommets.end()) /// si le sommet existe
         {
@@ -95,13 +91,11 @@ double x2;double y2;
             std::ifstream ifs{nomFichier};
     if (!ifs)
         throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-
     double ordre;
     ifs >> ordre;
     if ( ifs.fail() )
         throw std::runtime_error("Probleme lecture ordre du graphe");
     double valeur;
-
     ifs>>valeur;
 
     double id;
@@ -109,12 +103,10 @@ double x2;double y2;
     double sommet1=0;double sommet2=0;
     double x1,x2,y1,y2;
     //lecture des aretes
-
     for (int i=0; i<ordre; ++i){
         ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
         ifs>>poids1; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
         ifs>>poids2; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
-
 
         arete_ponderation.push_back(std::vector<float>(3));//vecteur pour faire pareto partie 2
         arete_ponderation[i][0]=id;
@@ -130,7 +122,6 @@ double x2;double y2;
     {
         sommet1=tableau_Coordonne[i][1];
         sommet2=tableau_Coordonne[i][2];
-
     }
 
         for(int i=0;i<50;++i)
@@ -183,17 +174,14 @@ double x2;double y2;
         //(m_sommets.find(id))->second->ajouterVoisin((m_sommets.find(id_voisin))->second);
         //(m_sommets.find(id_voisin))->second->ajouterVoisin((m_sommets.find(id))->second);//remove si graphe orienté
         m_arete_poids.insert({id,new Arete{id,sommet1,sommet2,poids1,poids2}});
-
     }
     }
-
 
 }
 
 
 void graphe::afficher(int choix) const
 {
-
     if(choix==1){
     int numero=0;
     int numero1=0;
@@ -268,7 +256,6 @@ void graphe::kruskal(std::string nomFichier,std::string nomFichier2,Svgfile& svg
     double sommet1=0;int sommet2=0;
     double x1,x2,y1,y2;
     double x,y;
-
     ifs >> ordre;
     for (int i=0; i<ordre; ++i){
         ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
@@ -277,7 +264,6 @@ void graphe::kruskal(std::string nomFichier,std::string nomFichier2,Svgfile& svg
         tableauarete[i][0]=id;
         tableauarete[i][1]=x;
         tableauarete[i][2]=y;
-
     }
 
     double id_arete;
@@ -359,13 +345,11 @@ void graphe::kruskal(std::string nomFichier,std::string nomFichier2,Svgfile& svg
     for(int i=0;i<taille1;++i){
         comparer[i][0]=tableauarete[i][0];
         comparer[i][1]=tableauarete[i][0];
-
     }
 
     int finale[ordre-1][2];
     int f,g;
     int j=0;
-
     int stockage;
 for(int p=0;p<taille1;++p)
 {
@@ -462,3 +446,4 @@ int poidsk1=0;
 
 }
 graphe::~graphe(){};
+
