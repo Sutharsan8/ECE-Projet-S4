@@ -9,6 +9,7 @@ std::vector<std::vector<float>> RECUP_arete_p(std::string nomFichier,std::vector
 int main()
 {
     Svgfile svgout;
+
     std::vector<std::vector<double>> sommet_c; ///METTRE CA EN PARAMETRE DANS TA NOUVELLE FONCTION,CES VECTEURS SONT DEJA REMPLIS !
     std::vector<std::vector<double>> arete_s;
     std::vector<std::vector<float>> arete_p;
@@ -20,6 +21,7 @@ int main()
     a.afficher(1);
     b.afficher(2);
     a.kruskal("manhattan.txt","manhattan_weights_0.txt",svgout,sommet_c,arete_s,arete_p);
+
     return 0;
 }
 

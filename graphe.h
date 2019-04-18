@@ -15,20 +15,22 @@ class graphe
     public:
         ///constructeur qui charge le graphe en mémoire
         //format du fichier ordre/liste des sommets/taille/liste des arêtes
+
         graphe(std::string, int choix,Svgfile& svgout,std::vector<std::vector<double>>,std::vector<std::vector<double>>,std::vector<std::vector<float>>);
         ~graphe();
         void afficher(int choix) const;
         void kruskal(std::string,std::string,Svgfile& svgout,std::vector<std::vector<double>>,std::vector<std::vector<double>>,std::vector<std::vector<float>>) const;
+
 
     private:
         /// Le réseau est constitué d'une collection de sommets
         std::unordered_map<double,Sommet*> m_sommets;//stockée dans une map (clé=id du sommet, valeur= pointeur sur le sommet)
         std::unordered_map<double,Arete*> m_arete;
         std::unordered_map<double,Arete*> m_arete_poids;
+
         std::vector<std::vector<double>> m_sommet_coords;
         std::vector<std::vector<double>> m_arete_sommet;
         std::vector<std::vector<float>> m_arete_ponderation;
-
 
 
 };
