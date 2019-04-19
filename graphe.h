@@ -18,7 +18,7 @@ class graphe
         graphe(std::string, int choix,Svgfile& svgout,std::vector<std::vector<double>>,std::vector<std::vector<double>>,std::vector<std::vector<float>>);
         ~graphe();
         void afficher(int choix) const;
-        void kruskal(std::string,std::string,Svgfile& svgout,std::vector<std::vector<double>>,std::vector<std::vector<double>>,std::vector<std::vector<float>>) const;
+        void kruskal(int,std::string,std::string,Svgfile& svgout,std::vector<std::vector<double>>,std::vector<std::vector<double>>,std::vector<std::vector<float>>) const;
 
     private:
         /// Le réseau est constitué d'une collection de sommets
@@ -28,8 +28,6 @@ class graphe
         std::vector<std::vector<double>> m_sommet_coords;
         std::vector<std::vector<double>> m_arete_sommet;
         std::vector<std::vector<float>> m_arete_ponderation;
-
-
 
 };
 

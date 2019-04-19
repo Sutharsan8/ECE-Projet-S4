@@ -10,6 +10,7 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
     double tableau_Coordonne[50][3];
     double tableauarete[50][3];
     double tableaupoids[50][3];
+    double ordre;
     if(choix==1){
 
 double x1;double y1;
@@ -19,7 +20,7 @@ double x2;double y2;
     std::ifstream ifs{nomFichier};
     if (!ifs)
         throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-    double ordre;
+
     ifs >> ordre;
     if ( ifs.fail() )
         throw std::runtime_error("Probleme lecture ordre du graphe");
@@ -30,9 +31,9 @@ double x2;double y2;
     double x,y;
     //lecture des sommets
     for (int i=0; i<ordre; ++i){
-        ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
-        ifs>>x; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
-        ifs>>y; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
+        ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données id");
+        ifs>>x; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet1");
+        ifs>>y; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet2");
         m_sommets.insert({id,new Sommet{id,x,y}}); ///premiere partie du fichier 1 recupere
 
         tableauarete[i][0]=id;
@@ -70,11 +71,12 @@ double x2;double y2;
         }
         svgout.addLine(x1,y1,x2,y2,"black");
         svgout.addCircle(x1,y1,3,5,"black");
-        svgout.addLine(x1+500,y1,x2+500,y2,"black");
-        svgout.addCircle(x1+500,y1,3,5,"black");
+        svgout.addLine(x1,y1,x2,y2,"black");
+        svgout.addCircle(x1,y1,3,5,"black");
         svgout.addCircle(x2,y2,3,5,"black");
         svgout.addText(x1-5,y1-5,s_1,"red");
         svgout.addText(x2-5,y2-5,s_2,"red");
+
         if(y1==y2)
         svgout.addText((x1+x2)/2,y1-5,id_arete,"green");
         if(x1==x2)
@@ -91,19 +93,20 @@ double x2;double y2;
             std::ifstream ifs{nomFichier};
     if (!ifs)
         throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-    double ordre;
-    ifs >> ordre;
+    double taille;
+    ifs >> taille;
+
     if ( ifs.fail() )
         throw std::runtime_error("Probleme lecture ordre du graphe");
     double valeur;
     ifs>>valeur;
-
+    int marcher=0;
     double id;
     double poids1,poids2;
-    double sommet1=0;double sommet2=0;
+    double sommet1;double sommet2;
     double x1,x2,y1,y2;
     //lecture des aretes
-    for (int i=0; i<ordre; ++i){
+    for (int i=0; i<taille; ++i){
         ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
         ifs>>poids1; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
         ifs>>poids2; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
@@ -123,25 +126,72 @@ double x2;double y2;
         sommet1=tableau_Coordonne[i][1];
         sommet2=tableau_Coordonne[i][2];
     }
+        if(nomFichier=="manhattan_weights_0.txt" || nomFichier=="broadway_weights_0.txt")
+        for(int r=0;r<taille;++r)
+        {
 
-        for(int i=0;i<50;++i)
-        {
-            if(sommet1==tableauarete[i][0]) /// si le sommet existe
-        {
-            x1=tableauarete[i][1];
-            y1=tableauarete[i][2];
+            if(sommet1==tableauarete[r][0]) /// si le sommet existe
+            {
+                if(marcher!=0){
+                x1=tableauarete[r][1];
+                y1=tableauarete[r][2];}
+                if(marcher==0){
+                x1=sommet_coords[r][1];
+                y1=sommet_coords[r][2];marcher++;}
 
+            }
+            if(sommet2==tableauarete[r][0]) /// si le sommet existe
+            {
+                x2=tableauarete[r][1];
+                y2=tableauarete[r][2];
+            }
         }
-            if(sommet2==tableauarete[i][0]) /// si le sommet existe
+        if(nomFichier=="triville_weights_0.txt")
+        for(int r=0;r<ordre;++r)
         {
-            x2=tableauarete[i][1];
-            y2=tableauarete[i][2];
+
+            if(sommet1==tableauarete[r][0]) /// si le sommet existe
+            {
+                if(marcher!=0){
+                x1=tableauarete[r][1];
+                y1=tableauarete[r][2];}
+                if(marcher==0){
+                x1=sommet_coords[r][1];
+                y1=sommet_coords[r][2];marcher++;}
+
+            }
+            if(sommet2==tableauarete[r][0]) /// si le sommet existe
+            {
+                x2=tableauarete[r][1];
+                y2=tableauarete[r][2];
+            }
         }
+        if(nomFichier=="cubetown_weights_0.txt")
+        for(int r=0;r<10;++r)
+        {
+
+            if(sommet1==tableauarete[r][0]) /// si le sommet existe
+            {
+                if(marcher!=0){
+                x1=tableauarete[r][1];
+                y1=tableauarete[r][2];}
+                if(marcher==0){
+                x1=sommet_coords[r][1];
+                y1=sommet_coords[r][2];marcher++;}
+
+            }
+            if(sommet2==tableauarete[r][0]) /// si le sommet existe
+            {
+                x2=tableauarete[r][1];
+                y2=tableauarete[r][2];
+            }
         }
+
 
         svgout.addLine(x1+500,y1,x2+500,y2,"black");
         svgout.addCircle(x1+500,y1,3,5,"black");
         svgout.addCircle(x2+500,y2,3,5,"black");
+
         if(y1==y2)
             {
                 svgout.addText((x1+x2)/2+500,y1-5,tableaupoids[i][1],"black");
@@ -169,10 +219,6 @@ double x2;double y2;
             svgout.addText((x1+x2)/2-5+518,(y2+y1)/2-5,tableaupoids[i][2],"black");
         }
 
-        //ajouter chaque extrémité à la liste des voisins de l'autre (graphe non orienté)
-
-        //(m_sommets.find(id))->second->ajouterVoisin((m_sommets.find(id_voisin))->second);
-        //(m_sommets.find(id_voisin))->second->ajouterVoisin((m_sommets.find(id))->second);//remove si graphe orienté
         m_arete_poids.insert({id,new Arete{id,sommet1,sommet2,poids1,poids2}});
     }
     }
@@ -239,8 +285,9 @@ if(choix==2)
 }
 
 
-void graphe::kruskal(std::string nomFichier,std::string nomFichier2,Svgfile& svgout,std::vector<std::vector<double>> sommet_coords,std::vector<std::vector<double>> arete_sommet,std::vector<std::vector<float>>arete_ponderation) const
+void graphe::kruskal(int poids,std::string nomFichier,std::string nomFichier2,Svgfile& svgout,std::vector<std::vector<double>> sommet_coords,std::vector<std::vector<double>> arete_sommet,std::vector<std::vector<float>>arete_ponderation) const
 {
+
 
     std::ifstream ifs{nomFichier};
     int ordre;
@@ -257,6 +304,7 @@ void graphe::kruskal(std::string nomFichier,std::string nomFichier2,Svgfile& svg
     double x1,x2,y1,y2;
     double x,y;
     ifs >> ordre;
+
     for (int i=0; i<ordre; ++i){
         ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
         ifs>>x; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
@@ -278,9 +326,7 @@ void graphe::kruskal(std::string nomFichier,std::string nomFichier2,Svgfile& svg
           ifs>>id_arete; if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
           ifs>>s_1;if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
           ifs>>s_2; if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
-          std::cout<<"valeur de id: "<<id_arete<<std::endl;
-          std::cout<<"valeur de s1: "<<s_1<<std::endl;
-          std::cout<<"valeur de s2: "<<s_2<<std::endl;
+
 
         tableau_Coordonne[i][0]=id_arete;
         tableau_Coordonne[i][1]=s_1;
@@ -288,7 +334,7 @@ void graphe::kruskal(std::string nomFichier,std::string nomFichier2,Svgfile& svg
         tableau_CoordonneINITIALE[i][0]=id_arete;
         tableau_CoordonneINITIALE[i][1]=s_1;
         tableau_CoordonneINITIALE[i][2]=s_2;
-        std::cout<<"arrete: "<<tableau_CoordonneINITIALE[i][0]<<"Sommet 1: "<<tableau_CoordonneINITIALE[i][1]<<"......."<<"Sommet 2: "<<tableau_CoordonneINITIALE[i][1]<<std::endl;
+
     }
     std::ifstream ifs2{nomFichier2};
     int taille1;
@@ -312,7 +358,7 @@ void graphe::kruskal(std::string nomFichier,std::string nomFichier2,Svgfile& svg
     for(int y=0;y<taille1;++y)
     for (int i=0; i<taille1; ++i)
     {
-        if(tableaupoids[i][1]>tableaupoids[i+1][1] && i+1<taille)
+        if(tableaupoids[i][poids]>tableaupoids[i+1][poids] && i+1<taille)
         {
             int stock[50][3];
             stock[i][1]=tableaupoids[i][1];//on change juste le poids 1 dont 2ieme colonne
@@ -379,35 +425,32 @@ for(int p=0;p<taille1;++p)
     }
 
 }
-int poidsk1=0;
+
+int objet=0;
     std::cout<<"-------------------------KRUSKAL---------------------------------"<<std::endl;
-   for(int h=0;h<ordre-1;++h)
+    std::cout<<"FIN"<<std::endl;
+int t;
+   for(int l=0;l<ordre-1;++l)///CEST L<ORDRE-1 JUSTE POUR TESTER AVEC UNE ARETE
     {
-        std::cout<<"Sommet 1: "<<finale[h][0]<<"     "<<"Sommet 2: "<<finale[h][1]<<std::endl;
-    }
-   for(int l=0;l<ordre-1;++l)
-    {
-        for(int t=0;t<ordre;++t)
+
+        for(t=0;t<ordre;++t)
         {
             if((finale[l][0])==(sommet_coords[t][0]))
             {
-               x1=tableauarete[t][1];
-               y1=tableauarete[t][2];
-               std::cout<<"valeur de t : "<<t<<std::endl;
-               for(int b=0;b<taille;++b)
-                {
-                    if((finale[b][1])==t)
-                    {
-                        poidsk1=sommet_coords[t][0];
-                    }
+               x1=sommet_coords[t][1];
+               y1=sommet_coords[t][2];
 
-                }
             }
-            if((finale[l][1])==(tableauarete[t][0]))
+            if((finale[l][1])==(sommet_coords[t][0]))
             {
-               x2=tableauarete[t][1];
-               y2=tableauarete[t][2];
+               x2=sommet_coords[t][1];
+               y2=sommet_coords[t][2];
+
             }
+            if((finale[l][0])==(arete_sommet[t][1]) && (finale[l][1])==(arete_sommet[t][2])){
+               objet=arete_sommet[t][0];
+               std::cout<<"valeur de objet : "<<objet<<std::endl;
+               }
         }
 
         svgout.addLine(x1,y1+500,x2,y2+500,"black");
@@ -415,30 +458,31 @@ int poidsk1=0;
         svgout.addCircle(x2,y2+500,3,5,"black");
         if((y1)==(y2))
             {
-                svgout.addText((x1+x2)/2,y1-5+500,aff[poidsk1][1],"black");
+                svgout.addText((x1+x2)/2,y1-5+500,arete_ponderation[objet][1],"black");
                 svgout.addText((x1+x2)/2,y1-5+510," ; ","black");
-                svgout.addText((x1+x2)/2,y1-5+518,aff[poidsk1][2],"black");
-
+                svgout.addText((x1+x2)/2,y1-5+518,arete_ponderation[objet][2],"black");
             }
 
-       if((x1)==(x2))
+       else if((x1)==(x2))
         {
-            svgout.addText(x2-10,(y1+y2)/2+500,aff[poidsk1][1],"black");
+            svgout.addText(x2-10,(y1+y2)/2+500,arete_ponderation[objet][1],"black");
             svgout.addText(x2-10,(y1+y2)/2+510," ; ","black");
-            svgout.addText(x2-10,(y1+y2)/2+518,aff[poidsk1][2],"black");
+            svgout.addText(x2-10,(y1+y2)/2+518,arete_ponderation[objet][2],"black");
 
         }
-        if((x1==y2) && (x2==y1))
+        else if((x1==y2) && (x2==y1))
         {
-            svgout.addText((x1+x2)/2-5,(y2+y1)/2-5+500,aff[poidsk1][1],"black");
+            svgout.addText((x1+x2)/2-5,(y2+y1)/2-5+500,arete_ponderation[objet][1],"black");
             svgout.addText((x1+x2)/2-5,(y2+y1)/2-5+510," ; ","black");
-            svgout.addText((x1+x2)/2-5,(y2+y1)/2-5+518,aff[poidsk1][2],"black");
+            svgout.addText((x1+x2)/2-5,(y2+y1)/2-5+518,arete_ponderation[objet][2],"black");
+
         }
-        if((x1!=x2) && (y1!=y2))
+        else if((x1!=x2) && (y1!=y2))
         {
-            svgout.addText((x1+x2)/2-5,(y2+y1)/2-5+500,aff[poidsk1][1],"black");
+            svgout.addText((x1+x2)/2-5,(y2+y1)/2-5+500,arete_ponderation[objet][1],"black");
             svgout.addText((x1+x2)/2-5,(y2+y1)/2-5+510," ; ","black");
-            svgout.addText((x1+x2)/2-5,(y2+y1)/2-5+518,aff[poidsk1][2],"black");
+            svgout.addText((x1+x2)/2-5,(y2+y1)/2-5+518,arete_ponderation[objet][2],"black");
+
         }
     }
 
