@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="2000" height="1000">
 
+<polygon points=" 0,0 500,0 500,500 0,500" style="fill:skyblue" />
+<polygon points=" 500,500 1000,500 1000,1000 500,1000" style="fill:skyblue" />
+<polygon points=" 500,0 1000,0 1000,500 500,500" style="fill:lightgreen" />
+<polygon points=" 0,500 500,500 500,1000 0,1000" style="fill:lightgreen" />
 <line x1="100" y1="100" x2="200" y2="100" stroke="black" />
 <circle cx="100" cy="100" r="3" fill="none" stroke="black" stroke-width="5" />
 <line x1="100" y1="100" x2="200" y2="100" stroke="black" />
