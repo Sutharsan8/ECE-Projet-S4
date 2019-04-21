@@ -206,7 +206,7 @@
 	<string>
 	<cstdint>
 
-1555761487 c:\users\ssuth\desktop\ecole cours\ece-projet-s4 bis\svgfile.h
+1555409623 c:\users\ssuth\desktop\ecole cours\ece-projet-s4 bis\svgfile.h
 	<string>
 	<fstream>
 	<set>
@@ -222,13 +222,13 @@
 1555365800 c:\users\ssuth\desktop\ecole cours\ece-projet-s4 bis\arete_poids.h
 	"Sommet.h"
 
-1555761994 source:c:\users\ssuth\desktop\ecole cours\ece-projet-s4 bis\graphe.cpp
+1555687112 source:c:\users\ssuth\desktop\ecole cours\ece-projet-s4 bis\graphe.cpp
 	<fstream>
 	<iostream>
 	"graphe.h"
 	"sommet.h"
 
-1555757760 c:\users\ssuth\desktop\ecole cours\ece-projet-s4 bis\graphe.h
+1555660952 c:\users\ssuth\desktop\ecole cours\ece-projet-s4 bis\graphe.h
 	<string>
 	<unordered_map>
 	<vector>
@@ -237,13 +237,13 @@
 	"couleur.h"
 	"svgfile.h"
 	"arete.h"
+
+1555687875 source:c:\users\ssuth\desktop\ecole cours\ece-projet-s4 bis\main.cpp
+	<iostream>
+	"graphe.h"
 	<algorithm>
 	<sstream>
 	<fstream>
-
-1555761526 source:c:\users\ssuth\desktop\ecole cours\ece-projet-s4 bis\main.cpp
-	<iostream>
-	"graphe.h"
 
 1555592780 source:c:\users\ssuth\desktop\ecole cours\ece-projet-s4 bis\sommet.cpp
 	<iostream>
@@ -259,13 +259,7 @@
 	<sstream>
 	"util/util.h"
 
-1555760213 source:c:\users\ssuth\desktop\ecole cours\ece-projet-s4 bis\svgfile_image.cpp
-
-1555761202 c:\users\ssuth\desktop\ecole cours\ece-projet-s4 bis\svg_image.h
-	"graphe.h"
-	<iostream>
-
-1555732016 source:c:\users\noork\desktop\git test projet piscine\ece-projet-s4 bis (2)\arete.cpp
+1555655844 source:c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\arete.cpp
 	<iostream>
 	<queue>
 	<stack>
@@ -274,10 +268,10 @@
 	"arete.h"
 	"Sommet.h"
 
-1555732016 c:\users\noork\desktop\git test projet piscine\ece-projet-s4 bis (2)\arete.h
+1555655846 c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\arete.h
 	"Sommet.h"
 
-1555732030 c:\users\noork\desktop\git test projet piscine\ece-projet-s4 bis (2)\sommet.h
+1555655880 c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\sommet.h
 	<string>
 	<vector>
 	<unordered_map>
@@ -286,29 +280,127 @@
 	"couleur.h"
 	"svgfile.h"
 
-1555732032 c:\users\noork\desktop\git test projet piscine\ece-projet-s4 bis (2)\util\util.h
+1555655890 c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\util\util.h
 	<string>
 	<random>
 	<ctime>
 	<iostream>
 	<cstdio>
 
-1555732018 c:\users\noork\desktop\git test projet piscine\ece-projet-s4 bis (2)\couleur.h
+1555655856 c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\couleur.h
 	<string>
 	<cstdint>
 
-1555732032 c:\users\noork\desktop\git test projet piscine\ece-projet-s4 bis (2)\svgfile.h
+1555655884 c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\svgfile.h
 	<string>
 	<fstream>
 	<set>
 
-1555794442 source:c:\users\noork\desktop\git test projet piscine\ece-projet-s4 bis (2)\graphe.cpp
+1555655846 source:c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\arete_poids.cpp
+	<iostream>
+	<queue>
+	<stack>
+	<list>
+	<unordered_map>
+	"arete_poids.h"
+
+1555655848 c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\arete_poids.h
+	"Sommet.h"
+
+1555655880 source:c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\sommet.cpp
+	<iostream>
+	<queue>
+	<stack>
+	<list>
+	<unordered_map>
+	"sommet.h"
+
+1555655882 source:c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\svgfile.cpp
+	"svgfile.h"
+	<iostream>
+	<sstream>
+	"util/util.h"
+
+1555848579 source:c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\graphe.cpp
 	<fstream>
 	<iostream>
+	<stack>
 	"graphe.h"
 	"sommet.h"
 
-1555732020 c:\users\noork\desktop\git test projet piscine\ece-projet-s4 bis (2)\graphe.h
+1555848579 c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\graphe.h
+	<string>
+	<unordered_map>
+	<vector>
+	"sommet.h"
+	"util/util.h"
+	"couleur.h"
+	"svgfile.h"
+	"arete.h"
+
+1555836909 source:c:\users\evan kermorgant\documents\ing2 informatique\ece-projet-s4 bis\main.cpp
+	<iostream>
+	"graphe.h"
+	<algorithm>
+	<sstream>
+	<fstream>
+
+1555655844 source:c:\users\ssuth\desktop\ece-projet-s4 bis\arete.cpp
+	<iostream>
+	<queue>
+	<stack>
+	<list>
+	<unordered_map>
+	"arete.h"
+	"Sommet.h"
+
+1555655846 c:\users\ssuth\desktop\ece-projet-s4 bis\arete.h
+	"Sommet.h"
+
+1555655880 c:\users\ssuth\desktop\ece-projet-s4 bis\sommet.h
+	<string>
+	<vector>
+	<unordered_map>
+	<unordered_set>
+	"util/util.h"
+	"couleur.h"
+	"svgfile.h"
+
+1555655890 c:\users\ssuth\desktop\ece-projet-s4 bis\util\util.h
+	<string>
+	<random>
+	<ctime>
+	<iostream>
+	<cstdio>
+
+1555655856 c:\users\ssuth\desktop\ece-projet-s4 bis\couleur.h
+	<string>
+	<cstdint>
+
+1555868570 c:\users\ssuth\desktop\ece-projet-s4 bis\svgfile.h
+	<string>
+	<fstream>
+	<set>
+
+1555655846 source:c:\users\ssuth\desktop\ece-projet-s4 bis\arete_poids.cpp
+	<iostream>
+	<queue>
+	<stack>
+	<list>
+	<unordered_map>
+	"arete_poids.h"
+
+1555655848 c:\users\ssuth\desktop\ece-projet-s4 bis\arete_poids.h
+	"Sommet.h"
+
+1555877371 source:c:\users\ssuth\desktop\ece-projet-s4 bis\graphe.cpp
+	<fstream>
+	<iostream>
+	<stack>
+	"graphe.h"
+	"sommet.h"
+
+1555877371 c:\users\ssuth\desktop\ece-projet-s4 bis\graphe.h
 	<string>
 	<unordered_map>
 	<vector>
@@ -321,11 +413,10 @@
 	<sstream>
 	<fstream>
 
-1555732020 source:c:\users\noork\desktop\git test projet piscine\ece-projet-s4 bis (2)\main.cpp
-	<iostream>
+1555885317 source:c:\users\ssuth\desktop\ece-projet-s4 bis\main.cpp
 	"graphe.h"
 
-1555732030 source:c:\users\noork\desktop\git test projet piscine\ece-projet-s4 bis (2)\sommet.cpp
+1555655880 source:c:\users\ssuth\desktop\ece-projet-s4 bis\sommet.cpp
 	<iostream>
 	<queue>
 	<stack>
@@ -333,17 +424,57 @@
 	<unordered_map>
 	"sommet.h"
 
-1555732030 source:c:\users\noork\desktop\git test projet piscine\ece-projet-s4 bis (2)\svgfile.cpp
+1555868570 source:c:\users\ssuth\desktop\ece-projet-s4 bis\svgfile.cpp
 	"svgfile.h"
 	<iostream>
 	<sstream>
 	"util/util.h"
 
-1555732020 source:c:\users\noork\ece-projet-s4\main.cpp
+1555655844 source:c:\users\ssuth\desktop\sivapalan_kardash_kermorgant\arete.cpp
 	<iostream>
-	"graphe.h"
+	<queue>
+	<stack>
+	<list>
+	<unordered_map>
+	"arete.h"
+	"Sommet.h"
 
-1555732020 c:\users\noork\ece-projet-s4\graphe.h
+1555655846 c:\users\ssuth\desktop\sivapalan_kardash_kermorgant\arete.h
+	"Sommet.h"
+
+1555655880 c:\users\ssuth\desktop\sivapalan_kardash_kermorgant\sommet.h
+	<string>
+	<vector>
+	<unordered_map>
+	<unordered_set>
+	"util/util.h"
+	"couleur.h"
+	"svgfile.h"
+
+1555655890 c:\users\ssuth\desktop\sivapalan_kardash_kermorgant\util\util.h
+	<string>
+	<random>
+	<ctime>
+	<iostream>
+	<cstdio>
+
+1555655856 c:\users\ssuth\desktop\sivapalan_kardash_kermorgant\couleur.h
+	<string>
+	<cstdint>
+
+1555868570 c:\users\ssuth\desktop\sivapalan_kardash_kermorgant\svgfile.h
+	<string>
+	<fstream>
+	<set>
+
+1555877371 source:c:\users\ssuth\desktop\sivapalan_kardash_kermorgant\graphe.cpp
+	<fstream>
+	<iostream>
+	<stack>
+	"graphe.h"
+	"sommet.h"
+
+1555877371 c:\users\ssuth\desktop\sivapalan_kardash_kermorgant\graphe.h
 	<string>
 	<unordered_map>
 	<vector>
@@ -356,35 +487,7 @@
 	<sstream>
 	<fstream>
 
-1555732030 c:\users\noork\ece-projet-s4\sommet.h
-	<string>
-	<vector>
-	<unordered_map>
-	<unordered_set>
-	"util/util.h"
-	"couleur.h"
-	"svgfile.h"
-
-1555732032 c:\users\noork\ece-projet-s4\util\util.h
-	<string>
-	<random>
-	<ctime>
-	<iostream>
-	<cstdio>
-
-1555732018 c:\users\noork\ece-projet-s4\couleur.h
-	<string>
-	<cstdint>
-
-1555732032 c:\users\noork\ece-projet-s4\svgfile.h
-	<string>
-	<fstream>
-	<set>
-
-1555732016 c:\users\noork\ece-projet-s4\arete.h
-	"Sommet.h"
-
-1555732030 source:c:\users\noork\ece-projet-s4\sommet.cpp
+1555655880 source:c:\users\ssuth\desktop\sivapalan_kardash_kermorgant\sommet.cpp
 	<iostream>
 	<queue>
 	<stack>
@@ -392,7 +495,16 @@
 	<unordered_map>
 	"sommet.h"
 
-1555811387 source:c:\users\noork\desktop\jenaimarresamere\ece-projet-s4-ddd57c2028b1dcef97445a5c6eeb6029daea8397\arete.cpp
+1555868570 source:c:\users\ssuth\desktop\sivapalan_kardash_kermorgant\svgfile.cpp
+	"svgfile.h"
+	<iostream>
+	<sstream>
+	"util/util.h"
+
+1555886756 source:c:\users\ssuth\desktop\sivapalan_kardash_kermorgant\main.cpp
+	"graphe.h"
+
+1555854500 source:c:\users\noork\desktop\git test projet piscine\sivapalan_kardache_kermorgant\arete.cpp
 	<iostream>
 	<queue>
 	<stack>
@@ -401,10 +513,10 @@
 	"arete.h"
 	"Sommet.h"
 
-1555811387 c:\users\noork\desktop\jenaimarresamere\ece-projet-s4-ddd57c2028b1dcef97445a5c6eeb6029daea8397\arete.h
+1555854500 c:\users\noork\desktop\git test projet piscine\sivapalan_kardache_kermorgant\arete.h
 	"Sommet.h"
 
-1555811387 c:\users\noork\desktop\jenaimarresamere\ece-projet-s4-ddd57c2028b1dcef97445a5c6eeb6029daea8397\sommet.h
+1555854516 c:\users\noork\desktop\git test projet piscine\sivapalan_kardache_kermorgant\sommet.h
 	<string>
 	<vector>
 	<unordered_map>
@@ -413,29 +525,30 @@
 	"couleur.h"
 	"svgfile.h"
 
-1555811387 c:\users\noork\desktop\jenaimarresamere\ece-projet-s4-ddd57c2028b1dcef97445a5c6eeb6029daea8397\util\util.h
+1555854516 c:\users\noork\desktop\git test projet piscine\sivapalan_kardache_kermorgant\util\util.h
 	<string>
 	<random>
 	<ctime>
 	<iostream>
 	<cstdio>
 
-1555811387 c:\users\noork\desktop\jenaimarresamere\ece-projet-s4-ddd57c2028b1dcef97445a5c6eeb6029daea8397\couleur.h
+1555854500 c:\users\noork\desktop\git test projet piscine\sivapalan_kardache_kermorgant\couleur.h
 	<string>
 	<cstdint>
 
-1555860448 c:\users\noork\desktop\jenaimarresamere\ece-projet-s4-ddd57c2028b1dcef97445a5c6eeb6029daea8397\svgfile.h
+1555854516 c:\users\noork\desktop\git test projet piscine\sivapalan_kardache_kermorgant\svgfile.h
 	<string>
 	<fstream>
 	<set>
 
-1555860335 source:c:\users\noork\desktop\jenaimarresamere\ece-projet-s4-ddd57c2028b1dcef97445a5c6eeb6029daea8397\graphe.cpp
+1555854502 source:c:\users\noork\desktop\git test projet piscine\sivapalan_kardache_kermorgant\graphe.cpp
 	<fstream>
 	<iostream>
+	<stack>
 	"graphe.h"
 	"sommet.h"
 
-1555860373 c:\users\noork\desktop\jenaimarresamere\ece-projet-s4-ddd57c2028b1dcef97445a5c6eeb6029daea8397\graphe.h
+1555854504 c:\users\noork\desktop\git test projet piscine\sivapalan_kardache_kermorgant\graphe.h
 	<string>
 	<unordered_map>
 	<vector>
@@ -448,11 +561,7 @@
 	<sstream>
 	<fstream>
 
-1555860256 source:c:\users\noork\desktop\jenaimarresamere\ece-projet-s4-ddd57c2028b1dcef97445a5c6eeb6029daea8397\main.cpp
-	<iostream>
-	"graphe.h"
-
-1555811387 source:c:\users\noork\desktop\jenaimarresamere\ece-projet-s4-ddd57c2028b1dcef97445a5c6eeb6029daea8397\sommet.cpp
+1555854516 source:c:\users\noork\desktop\git test projet piscine\sivapalan_kardache_kermorgant\sommet.cpp
 	<iostream>
 	<queue>
 	<stack>
@@ -460,7 +569,7 @@
 	<unordered_map>
 	"sommet.h"
 
-1555860450 source:c:\users\noork\desktop\jenaimarresamere\ece-projet-s4-ddd57c2028b1dcef97445a5c6eeb6029daea8397\svgfile.cpp
+1555854516 source:c:\users\noork\desktop\git test projet piscine\sivapalan_kardache_kermorgant\svgfile.cpp
 	"svgfile.h"
 	<iostream>
 	<sstream>

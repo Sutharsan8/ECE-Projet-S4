@@ -1,10 +1,13 @@
- /**
- * \details    Dans le graphe.cpp on defini les methodes necessaire pour traiter un graph et appliquer un Kruskal sur un Graphe
-  */
 #include <fstream>
 #include <iostream>
+#include <stack>          // std::stack
 #include "graphe.h"
 #include"sommet.h"
+using namespace std;
+
+///code source provenant d'internet, utiliser pour les combinaisons dans void combinatoire!
+///http://www.cplusplus.com/reference/algorithm/next_permutation/
+
 
 graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<std::vector<double>> sommet_coords,std::vector<std::vector<double>> arete_sommet,std::vector<std::vector<float>>arete_ponderation):m_sommet_coords{sommet_coords},m_arete_sommet{arete_sommet},m_arete_ponderation{arete_ponderation}
 {
@@ -12,127 +15,158 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
     double tableauarete[50][3];
     double tableaupoids[50][3];
     double ordre;
-    double taille;
-    if(choix==1){
 
-    double x1,y1,x2,y2;
-////////////////////////////////////////////////////////////////////////////////////////////
-   ///fichier 1
-    std::ifstream ifs{nomFichier};
-    if (!ifs)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-
-    ifs >> ordre;
-    if ( ifs.fail() )
-        throw std::runtime_error("Probleme lecture ordre du graphe");
-
-////////////////////////////////////////////////////////////////////////////////////////////
-
-    double id;
-    double x,y;
-    //lecture des sommets
-    for (int i=0; i<ordre; ++i){
-        ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données id");
-        ifs>>x; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet1");
-        ifs>>y; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet2");
-        m_sommets.insert({id,new Sommet{id,x,y}}); ///premiere partie du fichier 1 recupere
-        m_sommet_coords[i][0]=id;
-        m_sommet_coords[i][1]=x;
-        m_sommet_coords[i][2]=y;
-        //mettre aff2 affectation pour regler probleme affichage
-        tableauarete[i][0]=id;
-        tableauarete[i][1]=x;
-        tableauarete[i][2]=y;
-
-    }
-
-    double id_arete;
-    double s_1,s_2;
-    ifs>>taille;
-
-    //lecture des aretes
-    for (int i=0; i<taille; ++i)
+    if(choix==1)
     {
-        //lecture des ids des deux extrémités
-          ifs>>id_arete; if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
-          ifs>>s_1;if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
-          ifs>>s_2; if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
-        m_arete.insert({id_arete, new Arete{id_arete,s_1,s_2,0,0}});
-        m_arete_sommet[i][0]=id_arete;
-        m_arete_sommet[i][1]=s_1;
-        m_arete_sommet[i][2]=s_2;
-        tableau_Coordonne[i][0]=id_arete;
-        tableau_Coordonne[i][1]=s_1;
-        tableau_Coordonne[i][2]=s_2;
+        double x1;double y1;
+        double x2;double y2;
 
-        if(m_sommets.find(s_1)!=m_sommets.end()) /// si le sommet existe
-        {
-            Sommet*s0=(m_sommets.find(s_1))->second; ///récupation des valeurs puis affichage
-            x1=s0->GetX();y1=s0->GetY();
-        }
-        if(m_sommets.find(s_2)!=m_sommets.end()) /// si le sommet existe
-        {
-            Sommet*s0=(m_sommets.find(s_2))->second; ///récupation des valeurs puis affichage
-            x2=s0->GetX();y2=s0->GetY();
-        }
-        svgout.addLine(x1,y1,x2,y2,"black");
-        svgout.addCircle(x1,y1,3,5,"black");
-        svgout.addLine(x1,y1,x2,y2,"black");
-        svgout.addCircle(x1,y1,3,5,"black");
-        svgout.addCircle(x2,y2,3,5,"black");
-        svgout.addText(x1-5,y1-5,s_1,"red");
-        svgout.addText(x2-5,y2-5,s_2,"red");
+        ///fichier 1
+        std::ifstream ifs{nomFichier};
+        if (!ifs)
+            throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
 
-        if(y1==y2)
-        svgout.addText((x1+x2)/2,y1-5,id_arete,"green");
-        if(x1==x2)
-        svgout.addText(x2-10,(y1+y2)/2,id_arete,"green");
-        if(x1==y2 && x2==y1)
-        svgout.addText((x1+x2)/2-5,(y2+y1)/2-5,id_arete,"green");
-        if(x1!=x2 && y1!=y2)
-        svgout.addText((x1+x2)/2-5,(y2+y1)/2-5,id_arete,"green");
+        ifs >> ordre;
+        if ( ifs.fail() )
+            throw std::runtime_error("Probleme lecture ordre du graphe");
+
+
+        double id;
+        double x,y;
+
+        //lecture des sommets, chaque ligne contient l'id du sommet, puis les deux coordonees
+        for (int i=0; i<ordre; ++i)
+        {
+            ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données id");
+            ifs>>x; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet1");
+            ifs>>y; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet2");
+
+            /// Populer la map des sommets
+            m_sommets.insert({id, new Sommet{id,x,y}}); ///premiere partie du fichier 1 recupere
+
+            /// Puis le vecteurs de tous les sommets
+            m_sommet_coords[i][0]=id;
+            m_sommet_coords[i][1]=x;
+            m_sommet_coords[i][2]=y;
+
+            /// ???
+            tableauarete[i][0]=id;
+            tableauarete[i][1]=x;
+            tableauarete[i][2]=y;
+        }
+
+        /// Lecture du nombre d'Aretes
+        double id_arete;
+        double s_1,s_2;
+        double taille;
+        ifs>>taille;
+
+        /// lecture des aretes, chaque arete est representee par son id, et les deux id des sommets.
+        for (int i=0; i<taille; ++i)
+        {
+            //lecture des ids des deux extrémités
+            ifs>>id_arete; if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
+            ifs>>s_1;if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
+            ifs>>s_2; if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
+
+            /// Tout d'abord verifier que les sommets de l'arete existent bien !
+            if(m_sommets.find(s_1) == m_sommets.end() ||
+                m_sommets.find(s_2) == m_sommets.end())
+            {
+                throw std::runtime_error( "Arete ayant un sommet non defini" + nomFichier );
+            }
+
+            /// Inserer l'arete dans la map des aretes
+            m_arete.insert({id_arete, new Arete{id_arete,s_1,s_2,0,0}});
+
+            /// Populer une vecteur d'aretes
+            m_arete_sommet[i][0]=id_arete;
+            m_arete_sommet[i][1]=s_1;
+            m_arete_sommet[i][2]=s_2;
+
+            /// Remplir a nouveau une table d'aretes [areteId, sommetId, sommetId]
+            tableau_Coordonne[i][0]=id_arete;
+            tableau_Coordonne[i][1]=s_1;
+            tableau_Coordonne[i][2]=s_2;
+
+            /// Verifier que les sommets de l'arete existent bien !
+            if(m_sommets.find(s_1) != m_sommets.end()) /// si le sommet existe
+            {
+                Sommet*s0=(m_sommets.find(s_1))->second; ///récupation des valeurs puis affichage
+                x1=s0->GetX();y1=s0->GetY();
+            }
+            if(m_sommets.find(s_2)!=m_sommets.end()) /// si le sommet existe
+            {
+                Sommet*s0=(m_sommets.find(s_2))->second; ///récupation des valeurs puis affichage
+                x2=s0->GetX();y2=s0->GetY();
+            }
+            svgout.addLine(x1,y1,x2,y2,"black");
+            svgout.addCircle(x1,y1,3,5,"black");
+            svgout.addLine(x1,y1,x2,y2,"black");
+            svgout.addCircle(x1,y1,3,5,"black");
+            svgout.addCircle(x2,y2,3,5,"black");
+            svgout.addText(x1-5,y1-5,s_1,"red");
+            svgout.addText(x2-5,y2-5,s_2,"red");
+
+            if(y1==y2)
+            svgout.addText((x1+x2)/2,y1-5,id_arete,"green");
+            if(x1==x2)
+            svgout.addText(x2-10,(y1+y2)/2,id_arete,"green");
+            if(x1==y2 && x2==y1)
+            svgout.addText((x1+x2)/2-5,(y2+y1)/2-5,id_arete,"green");
+            if(x1!=x2 && y1!=y2)
+            svgout.addText((x1+x2)/2-5,(y2+y1)/2-5,id_arete,"green");
+        }
     }
-}
+
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if(choix==2)
     {
-    double x1,y1,x2,y2; //On declare les coordonnées des sommets
-    std::ifstream ifs{nomFichier};
-    if (!ifs)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-    ifs >> taille;
+        /// Lire le fichier de ponderation
+        std::ifstream ifs{nomFichier};
+        if (!ifs)
+            throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
+        double taille;
+        ifs >> taille;
 
-    if ( ifs.fail() )
-        throw std::runtime_error("Probleme lecture ordre du graphe");
-    double valeur;
-    ifs>>valeur;
-    int marcher=0;
+        if ( ifs.fail() )
+            throw std::runtime_error("Probleme lecture nombre d'Aretes");
+        double valeur;
+        ifs>>valeur;
+        int marcher=0;
+        double id;
+        double poids1,poids2;
+        double sommet1;double sommet2;
+        double x1,x2,y1,y2;
+        //lecture de la ponderation des aretes
+        for (int i=0; i<taille; ++i){
+            ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
+            ifs>>poids1; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
+            ifs>>poids2; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
 
-    double id;
-    double poids1,poids2;
-    double sommet1;double sommet2;
-    //lecture des aretes
-    for (int i=0; i<taille; ++i){
-        ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
-        ifs>>poids1; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
-        ifs>>poids2; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
+            /// Initialiser u vectuer de ponderation qui sera rempli plus tard
+            m_arete_ponderation.push_back(std::vector<float>(3));//vecteur pour faire pareto partie 2
 
-        m_arete_ponderation.push_back(std::vector<float>(3));//vecteur pour faire pareto partie 2
-        m_arete_ponderation[i][0]=id;
-        m_arete_ponderation[i][1]=poids1;
-        m_arete_ponderation[i][2]=poids2;
+            /// stocker la ponderation des aretes dans la tables de ponderation
+            m_arete_ponderation[i][0]=id;
+            m_arete_ponderation[i][1]=poids1;
+            m_arete_ponderation[i][2]=poids2;
 
-        tableaupoids[i][0]=id;
-        tableaupoids[i][1]=poids1;
-        tableaupoids[i][2]=poids2;
+            /// stocker la ponderation des aretes dans la tables de ponderation
+            tableaupoids[i][0]=id;
+            tableaupoids[i][1]=poids1;
+            tableaupoids[i][2]=poids2;
 
+            /// Verifier si l'arete ponderee se trouve au meme index que l'arete deja lue
+            /// precedemment dans le fichier de definition du graphe
+            /// tableau_Coordonne sous forme  [areteId, sommetId, sommetId]
+            if(id==tableau_Coordonne[i][0])
+            {
+                sommet1=tableau_Coordonne[i][1];
+                sommet2=tableau_Coordonne[i][2];
+            }
 
-    if(id==tableau_Coordonne[i][0])
-    {
-        sommet1=tableau_Coordonne[i][1];
-        sommet2=tableau_Coordonne[i][2];
-    }
-        for(int r=0;r<50;++r)
+            for(int r=0;r<50;++r)
         {
 
             if(sommet1==(tableauarete[r][0])) /// si le sommet existe
@@ -156,35 +190,33 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
 
         if(y1==y2)
             {
-                svgout.addText((x1+x2)/2+500-15,y1-5,tableaupoids[i][1],"black");
-                svgout.addText((x1+x2)/2+500,y1-5," ; ","black");
-                svgout.addText((x1+x2)/2+500+5,y1-5,tableaupoids[i][2],"black");
+                svgout.addText((x1+x2)/2+500-15,y1-5,tableaupoids[i][1],"yellow");
+                svgout.addText((x1+x2)/2+500,y1-5," ; ","yellow");
+                svgout.addText((x1+x2)/2+500+5,y1-5,tableaupoids[i][2],"yellow");
             }
 
         if(x1==x2)
         {
-            svgout.addText(x2-15+500,(y1+y2)/2,tableaupoids[i][1],"black");
-            svgout.addText(x2+500,(y1+y2)/2," ; ","black");
-            svgout.addText(x2+5+500,(y1+y2)/2,tableaupoids[i][2],"black");
+            svgout.addText(x2-15+500,(y1+y2)/2,tableaupoids[i][1],"yellow");
+            svgout.addText(x2+500,(y1+y2)/2," ; ","yellow");
+            svgout.addText(x2+5+500,(y1+y2)/2,tableaupoids[i][2],"yellow");
         }
 
         if(x1==y2 && x2==y1)
         {
-            svgout.addText((x1+x2)/2-5-10+500,(y2+y1)/2-5,tableaupoids[i][1],"black");
-            svgout.addText((x1+x2)/2+500,(y2+y1)/2-5," ; ","black");
-            svgout.addText((x1+x2)/2-5+10+500,(y2+y1)/2-5,tableaupoids[i][2],"black");
+            svgout.addText((x1+x2)/2-5-10+500,(y2+y1)/2-5,tableaupoids[i][1],"yellow");
+            svgout.addText((x1+x2)/2+500,(y2+y1)/2-5," ; ","yellow");
+            svgout.addText((x1+x2)/2-5+10+500,(y2+y1)/2-5,tableaupoids[i][2],"yellow");
         }
         if(x1!=x2 && y1!=y2)
         {
-            svgout.addText((x1+x2)/2-5-10+500,(y2+y1)/2-5,tableaupoids[i][1],"black");
-            svgout.addText((x1+x2)/2+500,(y2+y1)/2-5," ; ","black");
-            svgout.addText((x1+x2)/2-5+10+500,(y2+y1)/2-5,tableaupoids[i][2],"black");
+            svgout.addText((x1+x2)/2-5-10+500,(y2+y1)/2-5,tableaupoids[i][1],"yellow");
+            svgout.addText((x1+x2)/2+500,(y2+y1)/2-5," ; ","yellow");
+            svgout.addText((x1+x2)/2-5+10+500,(y2+y1)/2-5,tableaupoids[i][2],"yellow");
         }
-        //on stockes les ponderations des aretes dans m_arete_poids
-        m_arete_poids.insert({id,new Arete{id,sommet1,sommet2,poids1,poids2}});
+            m_arete_poids.insert({id,new Arete{id,sommet1,sommet2,poids1,poids2}});
+        }
     }
-    }
-
 }
 
 
@@ -245,7 +277,6 @@ if(choix==2)
     }
 }
 }
-
 
 std::vector<float> graphe::kruskal(int poids,std::string nomFichier,std::string nomFichier2,Svgfile& svgout,std::vector<std::vector<double>> sommet_coords,std::vector<std::vector<double>> arete_sommet,std::vector<std::vector<float>>arete_ponderation,std::vector<float> m_couts) const
 {
@@ -446,5 +477,159 @@ int t;
     return m_couts;
 }
 
+
 graphe::~graphe(){};
+
+graphe::GetOrdre() const
+{
+    return m_sommet_coords.size();
+
+}
+
+graphe::GetTaille() const
+{
+    return m_arete_sommet.size();
+}
+
+/// verifie qu'une possibilite est bien connexe dans le graphe
+bool graphe::verifierConnexite(std::vector<int> Aretes) const
+{
+    int j=0;
+
+    /// iterer sur chaque sommer du graphe
+    for(int i=0; i<m_sommet_coords.size();++i)
+    {
+        /// verifier que le sommet se retrouve bien dans ua moins une arete des posibilites
+        for( j=0;j<Aretes.size();++j)
+        {
+            /// Chaque sommet de m_sommet_coords est represente par un tableau [sommetId, Xcoord, Ycoord]
+            /// Chaque arete de m_arete_sommet est representee par un tableau [AreteId, sommetId, sommetId]
+            if(m_sommet_coords[i][0] == m_arete_sommet[Aretes[j]][1] ||
+               m_sommet_coords[i][0] == m_arete_sommet[Aretes[j]][2])
+            {
+                break;
+            }
+        }
+        if(j==Aretes.size())
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+/// Calculer le cout d'une possibilite
+/// Il peut y avoir plusieurs couts, typiquement 2
+double graphe::calculerCout(int type, std::vector<int> Aretes) const
+{
+    double cost = 0.0;
+    /// Prendre touts les aretes du vecteur
+    for( int j=0;j<Aretes.size();++j)
+    {
+        /// Chaque ponderation d'arete est representee par un tableau [AreteId, poids1, poids2]
+        cost += m_arete_ponderation[Aretes[j]][type];
+    }
+    return cost;
+}
+
+/// Trouver la liste des aretes adjacentes a une arete dans un graphe
+std::vector<int> graphe::areteAdjacentes (int arete, std::vector<int> Aretes) const
+{
+    std::vector<int> adjacentes;
+    /// std::cout << " Adjacence pour l'Arete " << arete << " Sommets " << m_arete_sommet[arete][1] << " ," << m_arete_sommet[arete][2] << std::endl;
+
+    /// je boucle dans le vecteurs d'aretes pour rechercher toutes les aretes
+    /// qui partagent un sommet commun avec l'arete donnee
+    for(int j=0; j<Aretes.size(); j++)
+    {
+        /// verifier que je ne me retrouve pas moi-meme
+        if(Aretes[j] == arete)
+            continue;
+
+        /// std::cout << " \t verif avec " << Aretes[j] << " Sommets " << m_arete_sommet[Aretes[j]][1] << " ," << m_arete_sommet[Aretes[j]][2] << std::endl;
+        /// m_arete_sommet est une table d'aretes [areteId, sommetId, sommetId]
+        if(m_arete_sommet[Aretes[j]][1] == m_arete_sommet[arete][1] ||
+           m_arete_sommet[Aretes[j]][1] == m_arete_sommet[arete][2] ||
+           m_arete_sommet[Aretes[j]][2] == m_arete_sommet[arete][1] ||
+           m_arete_sommet[Aretes[j]][2] == m_arete_sommet[arete][2])
+        {
+            adjacentes.push_back(Aretes[j]);
+        }
+    }
+    return(adjacentes);
+}
+
+/// Determine si un graphe est connexe
+bool graphe::DFS(int ordre, std::vector<int> Aretes) const
+{
+    int arete;
+    /// Au depart aucune arete n'est visitee
+    std::vector<bool> aretesVisitees(Aretes.size(), false);
+    std::vector<bool> sommetsVisites(ordre, false);
+
+#if 0
+    std::cout << "DFS ordre: "<< ordre << " du vecteur (" ;
+    for(int i=0; i<Aretes.size(); i++)
+    {
+        std::cout << " " << Aretes[i] ;
+    }
+    std::cout << ")" << std::endl;
+#endif  //0
+
+    // Creation de notre pile pour effectuer DFS
+    std::stack<int> pile;
+
+    /// Commencer par la premiere arete
+    pile.push(Aretes[0]);
+
+    while (!pile.empty())
+    {
+
+        /// Pop une arete de la pile et l'imprimer
+        arete = pile.top();
+        pile.pop();
+
+        // Stack may contain same vertex twice. So
+        // we need to print the popped item only
+        // if it is not visited.
+        if (!aretesVisitees[arete])
+        {
+
+            /// std::cout << "Arete: " << arete << " visitee"<< std::endl;
+            /// std::cout << "Sommets: " << m_arete_sommet[arete][1] << " et " << m_arete_sommet[arete][2] << " visites"<< std::endl;
+
+            aretesVisitees[arete] = true;
+            sommetsVisites[m_arete_sommet[arete][1]] = true;
+            sommetsVisites[m_arete_sommet[arete][2]] = true;
+        }
+
+        /// Retrouver tous les aretes adjacentes a l'arete examinee s
+        /// Si unes aretes n'a pas ete deja visite, la rajouter dans la pile
+        std::vector<int> adj = areteAdjacentes (arete, Aretes);
+#if 0
+        std::cout << "les aretes adjacentes a "<< arete << " sont: (" ;
+        for(int i=0; i<adj.size(); i++)
+        {
+            std::cout << " " << adj[i] ;
+        }
+        std::cout << ")" << std::endl;
+#endif //0
+
+        for (auto i = 0; i != adj.size(); ++i)
+            if (!aretesVisitees[adj[i]])
+                pile.push(adj[i]);
+    }
+  /// verifier que tous les sommets ont ete inclus
+  for(int i=0; i<sommetsVisites.size(); i++)
+  {
+      if(sommetsVisites[i] == false)
+      {
+          /// std::cout << " Ce graphe n'est pas connexe car il ne contient pat le point: "<< i <<std::endl;
+          return false;
+      }
+  }
+  /// std::cout << " Ce graphe est connexe "<<std::endl;
+  return true;
+}
+
 

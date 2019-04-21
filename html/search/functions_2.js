@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kruskal',['kruskal',['../classgraphe.html#a2ad9a231bb2365e5327726ed68992de0',1,'graphe']]]
+  ['dfs',['DFS',['../classgraphe.html#a68430165a279140f9a84aa5e6cf19502',1,'graphe']]]
 ];

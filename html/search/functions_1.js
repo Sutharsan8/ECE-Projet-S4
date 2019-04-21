@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['graphe',['graphe',['../classgraphe.html#a27af33b3ee6a43a2026f32b17c7c8024',1,'graphe']]]
+  ['calculercout',['calculerCout',['../classgraphe.html#ad23ee425b92816cf45a25ec654747790',1,'graphe']]],
+  ['combinatoire',['combinatoire',['../main_8cpp.html#abde3efe32f81fbfed64d294f7c84838e',1,'main.cpp']]]
 ];
