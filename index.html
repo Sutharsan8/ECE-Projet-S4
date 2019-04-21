@@ -1,0 +1,39 @@
+<html>
+<body>
+
+<div id='div1'></div>
+<iframe id="svgFrame"
+    title="output"
+    width="1000"
+    height="800"
+    src="./output.svg">
+</iframe>
+
+
+<script>
+
+var time=0;
+function yop() {
+    document.getElementById('div1').innerHTML = ""+time;
+    document.getElementById('svgFrame').contentDocument.location.reload(true);
+    //document.getElementById('svgFrame').location.reload(true);
+    /*
+    if (time%2===0)
+        document.getElementById('div2').innerHTML = '<img src="output.svg"></img>';
+    else
+        document.getElementById('div2').innerHTML = '<img src="output2.svg"></img>';
+    */
+    //<div id='div1'></div>
+    //<div id='div2'></div>
+    //<img src="output.svg"></img>
+
+    ++time;
+    setTimeout(function(){yop();}, 1000);
+}
+
+setTimeout(yop(), 1000);
+//setTimeout(function(){ document.location.reload(true); }, 1000);
+
+</script>
+</body>
+</html>
