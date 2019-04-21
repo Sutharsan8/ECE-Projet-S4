@@ -1,30 +1,62 @@
 #include <iostream>
 #include "graphe.h"
+<<<<<<< HEAD
 #include <algorithm>
+=======
+
+///Une partie du code de recuperation en binaire venant d'internet qui est dans la méthode RECUP_binaire
+///http://www.cplusplus.com/reference/algorithm/next_permutation/
+
+>>>>>>> ft_graphfinal
 using namespace std;
 
 std::vector<std::vector<double>> RECUP_sommet_c(std::string nomFichier,std::vector<std::vector<double>> sommet_coords);
 std::vector<std::vector<double>> RECUP_arete_s(std::string nomFichier,std::vector<std::vector<double>> arete_sommet);
 std::vector<std::vector<float>> RECUP_arete_p(std::string nomFichier,std::vector<std::vector<float>> arete_ponderation);
-std::vector<std::vector<double>> RECUP_binaire(std::string nomFichier,std::string nomFichier1,std::vector<std::vector<double>> arete_sommet,std::vector<std::vector<double>> binaire);
+//std::vector<std::vector<double>> Conversion_binaire_arete(std::string nomFichier,std::string nomFichier1,std::vector<std::vector<double>> arete_pareto_1,std::vector<std::vector<bool>> sauvegarde_binaire,std::vector<std::vector<double>> arete_sommet);
 
 int main()
 {
     Svgfile svgout;
-    std::vector<std::vector<double>> sommet_c; ///METTRE CA EN PARAMETRE DANS TA NOUVELLE FONCTION,CES VECTEURS SONT DEJA REMPLIS !
+    svgout.addRectangle(0,0,500,0,500,500,0,500,"skyblue");
+    svgout.addRectangle(500,500,1000,500,1000,1000,500,1000,"skyblue");
+    svgout.addRectangle(500,0,1000,0,1000,500,500,500,"lightgreen");
+    svgout.addRectangle(0,500,500,500,500,1000,0,1000,"lightgreen");
+    std::vector<std::vector<double>> sommet_c;
     std::vector<std::vector<double>> arete_s;
     std::vector<std::vector<float>> arete_p;
-    std::vector<std::vector<double>> binaire;
+    std::vector<bool> binaire;
+    std::vector<std::vector<bool>> sauvegarde_binaire;
+    std::vector<std::vector<double>> arete_pareto_1;
+
     sommet_c=RECUP_sommet_c("manhattan.txt",sommet_c);
     arete_s=RECUP_arete_s("manhattan.txt",arete_s);
     arete_p=RECUP_arete_p("manhattan_weights_0.txt",arete_p);
-    binaire=RECUP_binaire("manhattan.txt","manhattan_weights_0.txt",arete_s,binaire);
+
+   // arete_pareto_1=Conversion_binaire_arete("manhattan.txt","manhattan_weights_0.txt",arete_pareto_1,sauvegarde_binaire,arete_s);
+
+
     graphe a{"manhattan.txt",1, svgout,sommet_c,arete_s,arete_p};
     graphe b{"manhattan_weights_0.txt",2, svgout,sommet_c,arete_s,arete_p};
+
     a.afficher(1);
     b.afficher(2);
+
     a.kruskal(1,"manhattan.txt","manhattan_weights_0.txt",svgout,sommet_c,arete_s,arete_p);///PREMIER ARGUMENT CEST POUR LE POIDS,SI KRUSKAL EN FONTCTION DU PREMIER POIDS METTRE 1, SI EN FONCTION DU DEUXIEME POIDS,METTRE 2
-    return 0;
+    sauvegarde_binaire=a.RECUP_binaire("manhattan.txt","manhattan_weights_0.txt",binaire,sauvegarde_binaire);
+    arete_pareto_1=a.Conversion_binaire_arete("manhattan.txt","manhattan_weights_0.txt",arete_pareto_1,sauvegarde_binaire);
+   /* for(double h=0;h<sauvegarde_binaire.size();++h) ///TEST POUR SAVOIR SI C RECUPER
+    {
+        std::cout<<"!!!!"<<std::endl;
+        for(double m=0;m<5;++m)
+        {
+            std::cout << arete_pareto_1[h][m]<<";";
+        }
+    }*/
+   /* for(int h=0;h<sauvegarde_binaire.size();++h)
+        for(int m=0;m<3;++m)
+            std::cout << arete_pareto_1[h][m]<<"//////"<<std::endl;
+    return 0;*/
 }
 
 
@@ -130,62 +162,83 @@ return arete_ponderation;
 
 
 
-std::vector<std::vector<double>> RECUP_binaire(std::string nomFichier,std::string nomFichier1,std::vector<std::vector<double>> arete_sommet,std::vector<double> binaire)
+/*std::vector<std::vector<bool>> RECUP_binaire(std::string nomFichier,std::string nomFichier1,std::vector<bool> binaire,std::vector<std::vector<bool>> sauvegarde_binaire)
 {
-
+    std::vector<bool> tempon;
+    int compte=0;
     std::ifstream ifs{nomFichier};
     if (!ifs)
         throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-    double ordre;
+    int ordre;
     ifs >> ordre;
     std::ifstream ifs2{nomFichier1};
     if (!ifs2)
         throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-    double taille;
+    int taille;
     ifs2 >> taille;
+   // puissance=std::pow(2,ordre-1);
       ///code de recuperation en binaire venant d'internet
       ///http://www.cplusplus.com/reference/algorithm/next_permutation/
 
 
-    for (int i=0; i<(ordre-1); ++i){
-        binaire.push_back(1);//vecteur pour faire pareto partie 2
-        for(int o=0;o<taille;++o)
-                {
-                std::cout << binaire[i][o];
-                }
-            std::cout<<std::endl;
-    }
-    for (int i=ordre-1; i<taille; ++i){
-        binaire.push_back(0);//vecteur pour faire pareto partie 2
-    }
-
-  /*  for(int i=0;i<taille;++i)
-    std::sort(arete_sommet.begin(),arete_sommet.end());
-
-  std::cout << "The n possible permutations with n elements:\n";*/
+    for (int i=0; i<taille; ++i){    ///Pareto, premiere partie afin d'optimiser des le debut ordre-1 arete
+    if(i<ordre-1)
+    binaire.push_back(1);
+    else if(i>=ordre-1)
+    binaire.push_back(0);}
 
 
-          /*  do {
-                std::cout << binaire[0] << ' ' << binaire[1] << ' ' << binaire[2] << '\n';
-            } while ( std::next_permutation(myints,myints+3) );*/
+std::sort(binaire.begin(),binaire.end());  ///tri du vecteur initialiser precedemment
 
-        /*    for(int i=0;i<ordre-1;++i)
+        do {
+        for(int i=0; i<binaire.size() ;++i)
+        {
+            tempon.push_back(binaire[i]);///on push dans la vecteur tempon les differents cas
+        }
+        sauvegarde_binaire.push_back(tempon);///on push dans la vecteur finale qui contient tous les differents cas
+        tempon.clear();///on supprime le vecteur a une dimension pour pouvoir re-affecter des variables, donc des cas differents de binaire grace a la boucle do while
+
+        } while ( std::next_permutation(binaire.begin(),binaire.end()) );
+///FIN DE CODE SOURCE,INSPIRE DU SITE INTERNET
+
+
+return sauvegarde_binaire;
+}*/
+
+
+/*std::vector<std::vector<double>> Conversion_binaire_arete(std::string nomFichier,std::string nomFichier1,std::vector<std::vector<double>> arete_pareto_1,std::vector<std::vector<bool>> sauvegarde_binaire,std::vector<std::vector<double>> arete_sommet)
+{
+    int c=0;
+     std::ifstream ifs{nomFichier};
+    if (!ifs)
+        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
+    int ordre;
+    ifs >> ordre;
+    std::ifstream ifs2{nomFichier1};
+    if (!ifs2)
+        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier1 );
+    int taille;
+    ifs2 >> taille;
+
+    for(double h=0;h<sauvegarde_binaire.size();++h)
+    {
+        std::cout<<std::endl;
+        for(double m=0;m<taille;++m)
+        {
+            std::cout << sauvegarde_binaire[h][m]<<";";
+            if((sauvegarde_binaire[h][m])==1)
             {
-                for(int o=0;o<taille;++o)
-                {
-                std::cout << binaire[i][o] << ' ';
-                }
-            std::cout<<std::endl;
+                arete_pareto_1[h][c]=m;
+                ++c;
             }
-*/
-
-  //std::cout << "After loop: " << myints[0] << ' ' << myints[1] << ' ' << myints[2] << '\n';
-
-return arete_sommet;
+        }
+    }
+    for(int h=0;h<sauvegarde_binaire.size();++h)
+        for(int m=0;m<ordre-1;++m)
+            std::cout << arete_pareto_1[h][m]<<"//////"<<std::endl;
+return arete_pareto_1;
 }
-
-
-
+*/
 
 
 
