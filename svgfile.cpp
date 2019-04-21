@@ -1,7 +1,6 @@
  /**
  * \details    Dans le svgfile.cpp on defini les methodes necessaire pour affichées les données des graphes
   */
-
 #include "svgfile.h"
 #include <iostream>
 #include <sstream>
@@ -274,6 +273,7 @@ void Svgfile::addRectangle(double x1, double y1, double x2, double y2,
             << "\" style=\"fill:" << colorFill
             << "\" />\n";
 }
+
 
 void Svgfile::addTriangle(double x1, double y1, double x2, double y2,
                           double x3, double y3, std::string colorFill)

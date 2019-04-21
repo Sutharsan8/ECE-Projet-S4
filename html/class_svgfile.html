@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ECE-Projet-S4: Svgfile Class Reference</title>
+<title>Projet: Svgfile Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -29,9 +29,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">ECE-Projet-S4
-   &#160;<span id="projectnumber">0.1</span>
+   <div id="projectname">Projet
+   &#160;<span id="projectnumber">2.0</span>
    </div>
+   <div id="projectbrief">Les bicyclettes de trivilles</div>
   </td>
  </tr>
  </tbody>
@@ -129,14 +130,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addLineEp</b> (double
 <tr class="memitem:a691d57c25adf74a3d0972a632e55c8f4"><td class="memItemLeft" align="right" valign="top"><a id="a691d57c25adf74a3d0972a632e55c8f4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addCross</b> (double x, double y, double span, std::string color=defcol)</td></tr>
 <tr class="separator:a691d57c25adf74a3d0972a632e55c8f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad67004103da5e819676e0ef81cb2fe42"><td class="memItemLeft" align="right" valign="top"><a id="ad67004103da5e819676e0ef81cb2fe42"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addTree</b> (double x, double y, double r, std::string color=defcol)</td></tr>
-<tr class="separator:ad67004103da5e819676e0ef81cb2fe42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92ef6fea11c4d720213e5ccb22190705"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_svgfile.html#a92ef6fea11c4d720213e5ccb22190705">addText</a> (double x, double y, std::string text, std::string color=defcol)</td></tr>
 <tr class="separator:a92ef6fea11c4d720213e5ccb22190705"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb12121bb23459f257893afe21bfc855"><td class="memItemLeft" align="right" valign="top"><a id="acb12121bb23459f257893afe21bfc855"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addText</b> (double x, double y, double val, std::string color=defcol)</td></tr>
 <tr class="separator:acb12121bb23459f257893afe21bfc855"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac77b8e2da5a008d422400c1ef4ed4b96"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_svgfile.html#ac77b8e2da5a008d422400c1ef4ed4b96">addTexttitre</a> (double x, double y, std::string text, std::string style)</td></tr>
+<tr class="separator:ac77b8e2da5a008d422400c1ef4ed4b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fa0d646b77d079d2986f958915278d5"><td class="memItemLeft" align="right" valign="top"><a id="a9fa0d646b77d079d2986f958915278d5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addCurve</b> ()</td></tr>
 <tr class="separator:a9fa0d646b77d079d2986f958915278d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -214,6 +214,47 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>s_verbose</b> 
       </table>
 </div><div class="memdoc">
 <p>&lt;text x="180" y="60"&gt;Un texte&lt;/text&gt; </p>
+
+</div>
+</div>
+<a id="ac77b8e2da5a008d422400c1ef4ed4b96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac77b8e2da5a008d422400c1ef4ed4b96">&#9670;&nbsp;</a></span>addTexttitre()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Svgfile::addTexttitre </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>style</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>&lt;text x="180" y="60" style="fill:yellow;stroke:#abcdef;font-size:50px;"&gt;Un texte&lt;/text&gt; //on recupere cette stucture sur <a href="https://openclassrooms.com/fr/courses/201787-le-svg/201785-le-texte">https://openclassrooms.com/fr/courses/201787-le-svg/201785-le-texte</a> </p>
 
 </div>
 </div>
