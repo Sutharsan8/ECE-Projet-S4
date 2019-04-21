@@ -19,7 +19,6 @@ std::vector<std::vector<double>> RECUP_sommet_c(std::string nomFichier,std::vect
 std::vector<std::vector<double>> RECUP_arete_s(std::string nomFichier,std::vector<std::vector<double>> arete_sommet);
 std::vector<std::vector<float>> RECUP_arete_p(std::string nomFichier,std::vector<std::vector<float>> arete_ponderation);
 
-
 int main()
 {
     Svgfile svgout;
@@ -30,11 +29,9 @@ int main()
     std::vector<std::vector<float>> moyco;
     std::vector<float> couts;
 
-
     sommet_c=RECUP_sommet_c("manhattan.txt",sommet_c);
     arete_s=RECUP_arete_s("manhattan.txt",arete_s);
     arete_p=RECUP_arete_p("manhattan_weights_0.txt",arete_p);
-
     moyco=RECUP_coordmoy("manhattan.txt",moyco);
 
     ///Recuperation des coordonnées utiles pour dessiner les figures
@@ -93,7 +90,6 @@ int main()
  * \return    Un \e std::vector<std::vector<double>> \b sommet_coords qui contient toutes les données voulu.
  */
  std::vector<std::vector<double>> RECUP_sommet_c(std::string nomFichier,std::vector<std::vector<double>> sommet_coords)
-
 {
     double id;
     double x,y;
@@ -242,7 +238,6 @@ std::vector<std::vector<float>> RECUP_coordmoy(std::string nomFichier,std::vecto
  * \param    arete_ponderation       On stock ici les identifiants des aretes et leurs ponderations.
  * \return    Un \e std::vector<std::vector<float>> \b arete_ponderation qui contient toutes les données voulu.
  */
-
 std::vector<std::vector<float>> RECUP_arete_p(std::string nomFichier,std::vector<std::vector<float>> arete_ponderation)
 {
     std::ifstream ifs{nomFichier};
@@ -271,4 +266,3 @@ std::vector<std::vector<float>> RECUP_arete_p(std::string nomFichier,std::vector
         }
 return arete_ponderation;
 }
-

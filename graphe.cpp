@@ -16,7 +16,6 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
     if(choix==1){
 
     double x1,y1,x2,y2;
-
 ////////////////////////////////////////////////////////////////////////////////////////////
    ///fichier 1
     std::ifstream ifs{nomFichier};
@@ -31,7 +30,6 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
 
     double id;
     double x,y;
-
     //lecture des sommets
     for (int i=0; i<ordre; ++i){
         ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données id");
@@ -50,7 +48,6 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
 
     double id_arete;
     double s_1,s_2;
-
     ifs>>taille;
 
     //lecture des aretes
@@ -110,10 +107,10 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
     double valeur;
     ifs>>valeur;
     int marcher=0;
+
     double id;
     double poids1,poids2;
     double sommet1;double sommet2;
-
     //lecture des aretes
     for (int i=0; i<taille; ++i){
         ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
@@ -135,7 +132,6 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
         sommet1=tableau_Coordonne[i][1];
         sommet2=tableau_Coordonne[i][2];
     }
-
         for(int r=0;r<50;++r)
         {
 
@@ -151,8 +147,7 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
                 y2=tableauarete[r][2];
                 marcher++;
             }
-	//on verifie ici si on pas bien recuperé deux sommets enfin de les dessiners
-        if((marcher%2)==0){
+        if((marcher%2)==0){//on verifie ici si on pas bien recuperé deux sommets enfin de les dessiners
         svgout.addLine(x1+500,y1,x2+500,y2,"black");
         svgout.addCircle(x1+500,y1,3,5,"black");
         svgout.addCircle(x2+500,y2,3,5,"black");}
@@ -429,6 +424,7 @@ int t;
             svgout.addText(x2-30,(y1+y2)/2+500,arete_ponderation[objet][1],"blue");
             svgout.addText(x2-15,(y1+y2)/2+500," ; ","blue");
             svgout.addText(x2-10,(y1+y2)/2+500,arete_ponderation[objet][2],"blue");
+
         }
         else if((x1==y2) && (x2==y1))
         {

@@ -1,7 +1,6 @@
  /**
  * \details    Dans le svgfile.h on declare les methodes et variables necessaire pour affichées les données des graphes
   */
-
 #ifndef SVGFILE_H_INCLUDED
 #define SVGFILE_H_INCLUDED
 

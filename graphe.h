@@ -1,7 +1,6 @@
  /**
  * \details    Dans le graphe.h on declares les methodes et les variables necessaire pour traiter un graph et appliquer un Kruskal sur un Graphe
   */
-
 #ifndef GRAPHE_H
 #define GRAPHE_H
 #include <string>
@@ -16,6 +15,8 @@
 #include<sstream>
 #include<fstream>
 
+//#include"arete_poids.h"
+
 class graphe
 {
     public:
@@ -24,9 +25,7 @@ class graphe
         graphe(std::string, int choix,Svgfile& svgout,std::vector<std::vector<double>>,std::vector<std::vector<double>>,std::vector<std::vector<float>>);
         ~graphe();
         void afficher(int choix) const;
-
         std::vector<float> kruskal(int,std::string,std::string,Svgfile& svgout,std::vector<std::vector<double>>,std::vector<std::vector<double>>,std::vector<std::vector<float>>,std::vector<float>) const;
-
 
     private:
         /// Le réseau est constitué d'une collection de sommets
