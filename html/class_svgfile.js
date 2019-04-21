@@ -18,7 +18,7 @@ var class_svgfile =
     [ "addSoleil", "class_svgfile.html#ab4bc114eff8fefe1b4fe17ebfc39fbcf", null ],
     [ "addText", "class_svgfile.html#a92ef6fea11c4d720213e5ccb22190705", null ],
     [ "addText", "class_svgfile.html#acb12121bb23459f257893afe21bfc855", null ],
-    [ "addTexttitre", "class_svgfile.html#ac77b8e2da5a008d422400c1ef4ed4b96", null ],
+    [ "addTree", "class_svgfile.html#ad67004103da5e819676e0ef81cb2fe42", null ],
     [ "addTriangle", "class_svgfile.html#a2c31f32cfbb99562691ef73f97a08581", null ],
     [ "addTriangle", "class_svgfile.html#ac17f852302c2a8b860bf12e057526903", null ],
     [ "operator=", "class_svgfile.html#a04caba0b907d56e31c7c238e54fdfd3b", null ]

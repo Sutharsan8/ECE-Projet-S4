@@ -93,8 +93,6 @@ $(document).ready(function(){initNavTree('classgraphe.html','');});
 <div class="title">graphe Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p><code>#include &lt;<a class="el" href="graphe_8h_source.html">graphe.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -103,13 +101,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a27af33b3ee6a43a2026f32b17c7c8024"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fa62ff2689149c51f8c22432cdf20db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgraphe.html#a4fa62ff2689149c51f8c22432cdf20db">afficher</a> (int choix) const</td></tr>
 <tr class="separator:a4fa62ff2689149c51f8c22432cdf20db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8e03ec9c44e41c2bb8f51d9554824c5"><td class="memItemLeft" align="right" valign="top"><a id="aa8e03ec9c44e41c2bb8f51d9554824c5"></a>
-std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>kruskal</b> (int, std::string, std::string, <a class="el" href="class_svgfile.html">Svgfile</a> &amp;svgout, std::vector&lt; std::vector&lt; double &gt;&gt;, std::vector&lt; std::vector&lt; double &gt;&gt;, std::vector&lt; std::vector&lt; float &gt;&gt;, std::vector&lt; float &gt;) const</td></tr>
-<tr class="separator:aa8e03ec9c44e41c2bb8f51d9554824c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ad9a231bb2365e5327726ed68992de0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgraphe.html#a2ad9a231bb2365e5327726ed68992de0">kruskal</a> (int, std::string, std::string, <a class="el" href="class_svgfile.html">Svgfile</a> &amp;svgout, std::vector&lt; std::vector&lt; double &gt;&gt;, std::vector&lt; std::vector&lt; double &gt;&gt;, std::vector&lt; std::vector&lt; float &gt;&gt;) const</td></tr>
+<tr class="separator:a2ad9a231bb2365e5327726ed68992de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6512d780c8c2b4a3669accae4c67fb99"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; bool &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgraphe.html#a6512d780c8c2b4a3669accae4c67fb99">RECUP_binaire</a> (std::string nomFichier, std::string nomFichier1, std::vector&lt; bool &gt; binaire, std::vector&lt; std::vector&lt; bool &gt;&gt; sauvegarde_binaire)</td></tr>
+<tr class="separator:a6512d780c8c2b4a3669accae4c67fb99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7738e39fc56562b099c736fe6df2ccbd"><td class="memItemLeft" align="right" valign="top"><a id="a7738e39fc56562b099c736fe6df2ccbd"></a>
+std::vector&lt; std::vector&lt; double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Conversion_binaire_arete</b> (std::string nomFichier, std::string nomFichier1, std::vector&lt; std::vector&lt; double &gt;&gt; arete_pareto_1, std::vector&lt; std::vector&lt; bool &gt;&gt; sauvegarde_binaire)</td></tr>
+<tr class="separator:a7738e39fc56562b099c736fe6df2ccbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dans le <a class="el" href="graphe_8h_source.html">graphe.h</a> on declares les methodes et les variables necessaire pour traiter un graph et appliquer un Kruskal sur un Graphe </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a27af33b3ee6a43a2026f32b17c7c8024"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a27af33b3ee6a43a2026f32b17c7c8024">&#9670;&nbsp;</a></span>graphe()</h2>
 
@@ -155,7 +155,6 @@ std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
 </div><div class="memdoc">
 
 <p>constructeur qui charge le graphe en mémoire </p>
-<p>Dans le graphe.cpp on defini les methodes necessaire pour traiter un graph et appliquer un Kruskal sur un Graphe </p>
 <p>fichier 1</p>
 <p>premiere partie du fichier 1 recupere</p>
 <p>si le sommet existe</p>
@@ -192,6 +191,107 @@ std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
 <p>Tant qu'on a pas trouvé le même nombre de sommet que le graphe comporte</p>
 <p>si le sommet existe</p>
 <p>récupation des valeurs puis affichage </p>
+
+</div>
+</div>
+<a id="a2ad9a231bb2365e5327726ed68992de0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ad9a231bb2365e5327726ed68992de0">&#9670;&nbsp;</a></span>kruskal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void graphe::kruskal </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_svgfile.html">Svgfile</a> &amp;&#160;</td>
+          <td class="paramname"><em>svgout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::vector&lt; double &gt;&gt;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::vector&lt; double &gt;&gt;&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CEST L&lt;ORDRE-1 JUSTE POUR TESTER AVEC UNE ARETE </p>
+
+</div>
+</div>
+<a id="a6512d780c8c2b4a3669accae4c67fb99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6512d780c8c2b4a3669accae4c67fb99">&#9670;&nbsp;</a></span>RECUP_binaire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::vector&lt; bool &gt; &gt; graphe::RECUP_binaire </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>nomFichier</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>nomFichier1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; bool &gt;&#160;</td>
+          <td class="paramname"><em>binaire</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::vector&lt; bool &gt;&gt;&#160;</td>
+          <td class="paramname"><em>sauvegarde_binaire</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Une partie du code de recuperation en binaire venant d'internet qui est dans la méthode RECUP_binaire <a href="http://www.cplusplus.com/reference/algorithm/next_permutation/">http://www.cplusplus.com/reference/algorithm/next_permutation/</a> </p>
+<p>code de recuperation en binaire venant d'internet <a href="http://www.cplusplus.com/reference/algorithm/next_permutation/">http://www.cplusplus.com/reference/algorithm/next_permutation/</a></p>
+<p>Pareto, premiere partie afin d'optimiser des le debut ordre-1 arete</p>
+<p>tri du vecteur initialiser precedemment</p>
+<p>on push dans la vecteur tempon les differents cas</p>
+<p>on push dans la vecteur finale qui contient tous les differents cas</p>
+<p>on supprime le vecteur a une dimension pour pouvoir re-affecter des variables, donc des cas differents de binaire grace a la boucle do while</p>
+<p>FIN DE CODE SOURCE,INSPIRE DU SITE INTERNET </p>
 
 </div>
 </div>
