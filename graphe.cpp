@@ -1,9 +1,10 @@
+ /**
+ * \details    Dans le graphe.cpp on defini les methodes necessaire pour traiter un graph et appliquer un Kruskal sur un Graphe
+  */
 #include <fstream>
 #include <iostream>
 #include "graphe.h"
 #include"sommet.h"
-
-
 
 graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<std::vector<double>> sommet_coords,std::vector<std::vector<double>> arete_sommet,std::vector<std::vector<float>>arete_ponderation):m_sommet_coords{sommet_coords},m_arete_sommet{arete_sommet},m_arete_ponderation{arete_ponderation}
 {
@@ -11,11 +12,11 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
     double tableauarete[50][3];
     double tableaupoids[50][3];
     double ordre;
-    double aff2[0][3];
+    double taille;
     if(choix==1){
 
-    double x1;double y1;
-    double x2;double y2;
+    double x1,y1,x2,y2;
+
 ////////////////////////////////////////////////////////////////////////////////////////////
    ///fichier 1
     std::ifstream ifs{nomFichier};
@@ -30,7 +31,7 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
 
     double id;
     double x,y;
-    double maxxfi_1,maxyfi_1=0;
+
     //lecture des sommets
     for (int i=0; i<ordre; ++i){
         ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données id");
@@ -49,7 +50,7 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
 
     double id_arete;
     double s_1,s_2;
-    double taille;
+
     ifs>>taille;
 
     //lecture des aretes
@@ -98,10 +99,10 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if(choix==2)
     {
-            std::ifstream ifs{nomFichier};
+    double x1,y1,x2,y2; //On declare les coordonnées des sommets
+    std::ifstream ifs{nomFichier};
     if (!ifs)
         throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-    double taille;
     ifs >> taille;
 
     if ( ifs.fail() )
@@ -112,7 +113,7 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
     double id;
     double poids1,poids2;
     double sommet1;double sommet2;
-    double x1,x2,y1,y2;
+
     //lecture des aretes
     for (int i=0; i<taille; ++i){
         ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
@@ -134,7 +135,7 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
         sommet1=tableau_Coordonne[i][1];
         sommet2=tableau_Coordonne[i][2];
     }
-        //if(nomFichier=="manhattan_weights_0.txt" || nomFichier=="broadway_weights_0.txt" || nomFichier==nomFichier)
+
         for(int r=0;r<50;++r)
         {
 
@@ -150,6 +151,7 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
                 y2=tableauarete[r][2];
                 marcher++;
             }
+	//on verifie ici si on pas bien recuperé deux sommets enfin de les dessiners
         if((marcher%2)==0){
         svgout.addLine(x1+500,y1,x2+500,y2,"black");
         svgout.addCircle(x1+500,y1,3,5,"black");
@@ -159,31 +161,31 @@ graphe::graphe(std::string nomFichier, int choix, Svgfile& svgout,std::vector<st
 
         if(y1==y2)
             {
-                svgout.addText((x1+x2)/2+500,y1-5,tableaupoids[i][1],"black");
-                svgout.addText((x1+x2)/2+510,y1-5," ; ","black");
-                svgout.addText((x1+x2)/2+518,y1-5,tableaupoids[i][2],"black");
+                svgout.addText((x1+x2)/2+500-15,y1-5,tableaupoids[i][1],"black");
+                svgout.addText((x1+x2)/2+500,y1-5," ; ","black");
+                svgout.addText((x1+x2)/2+500+5,y1-5,tableaupoids[i][2],"black");
             }
 
         if(x1==x2)
         {
-            svgout.addText(x2-10+500,(y1+y2)/2,tableaupoids[i][1],"black");
-            svgout.addText(x2-10+510,(y1+y2)/2," ; ","black");
-            svgout.addText(x2-10+518,(y1+y2)/2,tableaupoids[i][2],"black");
+            svgout.addText(x2-15+500,(y1+y2)/2,tableaupoids[i][1],"black");
+            svgout.addText(x2+500,(y1+y2)/2," ; ","black");
+            svgout.addText(x2+5+500,(y1+y2)/2,tableaupoids[i][2],"black");
         }
 
         if(x1==y2 && x2==y1)
         {
-            svgout.addText((x1+x2)/2-5+500,(y2+y1)/2-5,tableaupoids[i][1],"black");
-            svgout.addText((x1+x2)/2-5+510,(y2+y1)/2-5," ; ","black");
-            svgout.addText((x1+x2)/2-5+518,(y2+y1)/2-5,tableaupoids[i][2],"black");
+            svgout.addText((x1+x2)/2-5-10+500,(y2+y1)/2-5,tableaupoids[i][1],"black");
+            svgout.addText((x1+x2)/2+500,(y2+y1)/2-5," ; ","black");
+            svgout.addText((x1+x2)/2-5+10+500,(y2+y1)/2-5,tableaupoids[i][2],"black");
         }
         if(x1!=x2 && y1!=y2)
         {
-            svgout.addText((x1+x2)/2-5+500,(y2+y1)/2-5,tableaupoids[i][1],"black");
-            svgout.addText((x1+x2)/2-5+510,(y2+y1)/2-5," ; ","black");
-            svgout.addText((x1+x2)/2-5+518,(y2+y1)/2-5,tableaupoids[i][2],"black");
+            svgout.addText((x1+x2)/2-5-10+500,(y2+y1)/2-5,tableaupoids[i][1],"black");
+            svgout.addText((x1+x2)/2+500,(y2+y1)/2-5," ; ","black");
+            svgout.addText((x1+x2)/2-5+10+500,(y2+y1)/2-5,tableaupoids[i][2],"black");
         }
-
+        //on stockes les ponderations des aretes dans m_arete_poids
         m_arete_poids.insert({id,new Arete{id,sommet1,sommet2,poids1,poids2}});
     }
     }
@@ -250,22 +252,18 @@ if(choix==2)
 }
 
 
-void graphe::kruskal(int poids,std::string nomFichier,std::string nomFichier2,Svgfile& svgout,std::vector<std::vector<double>> sommet_coords,std::vector<std::vector<double>> arete_sommet,std::vector<std::vector<float>>arete_ponderation) const
+std::vector<float> graphe::kruskal(int poids,std::string nomFichier,std::string nomFichier2,Svgfile& svgout,std::vector<std::vector<double>> sommet_coords,std::vector<std::vector<double>> arete_sommet,std::vector<std::vector<float>>arete_ponderation,std::vector<float> m_couts) const
 {
-
-
     std::ifstream ifs{nomFichier};
     int ordre;
     double tableau_Coordonne[50][3];
     double tableauarete[50][3];
     double tableaupoids[50][3];
     double tableaukruskal[50][3];
-    double tableauselection[50][3];
     double aff[50][3];
     double tableau_CoordonneINITIALE[50][3];
     double id;
     double poids1,poids2;
-    double sommet1=0;int sommet2=0;
     double x1,x2,y1,y2;
     double x,y;
     ifs >> ordre;
@@ -395,7 +393,7 @@ for(int p=0;p<taille1;++p)
 float couts,couts2;
 int objet=0;
 int t;
-   for(int l=0;l<ordre-1;++l)///CEST L<ORDRE-1 JUSTE POUR TESTER AVEC UNE ARETE
+   for(int l=0;l<ordre-1;++l)
     {
 
         for(t=0;t<ordre;++t)
@@ -421,116 +419,36 @@ int t;
         svgout.addCircle(x2,y2+500,3,5,"blue");
         if((y1)==(y2))
             {
-                svgout.addText((x1+x2)/2,y1-5+500,arete_ponderation[objet][1],"blue");
-                svgout.addText((x1+x2)/2+10,y1-5+500," ; ","blue");
-                svgout.addText((x1+x2)/2+20,y1-5+500,arete_ponderation[objet][2],"blue");
+                svgout.addText((x1+x2)/2-10,y1-5+500,arete_ponderation[objet][1],"blue");
+                svgout.addText((x1+x2)/2+5,y1-5+500," ; ","blue");
+                svgout.addText((x1+x2)/2+10,y1-5+500,arete_ponderation[objet][2],"blue");
             }
 
        else if((x1)==(x2))
         {
-            svgout.addText(x2-10,(y1+y2)/2+500,arete_ponderation[objet][1],"blue");
-            svgout.addText(x2-10+10,(y1+y2)/2+500," ; ","blue");
-            svgout.addText(x2-10+20,(y1+y2)/2+500,arete_ponderation[objet][2],"blue");
-
+            svgout.addText(x2-30,(y1+y2)/2+500,arete_ponderation[objet][1],"blue");
+            svgout.addText(x2-15,(y1+y2)/2+500," ; ","blue");
+            svgout.addText(x2-10,(y1+y2)/2+500,arete_ponderation[objet][2],"blue");
         }
         else if((x1==y2) && (x2==y1))
         {
-            svgout.addText((x1+x2)/2-5,(y2+y1)/2-5+500,arete_ponderation[objet][1],"blue");
-            svgout.addText((x1+x2)/2-5+10,(y2+y1)/2-5+500," ; ","blue");
-            svgout.addText((x1+x2)/2-5+20,(y2+y1)/2-5+500,arete_ponderation[objet][2],"blue");
+            svgout.addText((x1+x2)/2-5-10,(y2+y1)/2-5+500,arete_ponderation[objet][1],"blue");
+            svgout.addText((x1+x2)/2,(y2+y1)/2-5+500," ; ","blue");
+            svgout.addText((x1+x2)/2-5+10,(y2+y1)/2-5+500,arete_ponderation[objet][2],"blue");
 
         }
         else if((x1!=x2) && (y1!=y2))
         {
-            svgout.addText((x1+x2)/2-5,(y2+y1)/2-5+500,arete_ponderation[objet][1],"blue");
-            svgout.addText((x1+x2)/2-5+10,(y2+y1)/2-5+500," ; ","blue");
-            svgout.addText((x1+x2)/2-5+20,(y2+y1)/2-5+500,arete_ponderation[objet][2],"blue");
+            svgout.addText((x1+x2)/2-5-10,(y2+y1)/2-5+500,arete_ponderation[objet][1],"blue");
+            svgout.addText((x1+x2)/2,(y2+y1)/2-5+500," ; ","blue");
+            svgout.addText((x1+x2)/2-5+10,(y2+y1)/2-5+500,arete_ponderation[objet][2],"blue");
         }
 
     }
-
-         svgout.addText(210,550,"(","blue");
-         svgout.addText(230,550,couts,"blue");
-         svgout.addText(255,550,";","blue");
-         svgout.addText(270,550,couts2,"blue");
-         svgout.addText(290,550,")","blue");
+    m_couts.push_back(couts);
+    m_couts.push_back(couts2);
+    return m_couts;
 }
-
-std::vector<std::vector<bool>> graphe::RECUP_binaire(std::string nomFichier,std::string nomFichier1,std::vector<bool> binaire,std::vector<std::vector<bool>> sauvegarde_binaire)
-{
-    std::vector<bool> tempon;
-    int compte=0;
-    std::ifstream ifs{nomFichier};
-    if (!ifs)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-    int ordre;
-    ifs >> ordre;
-    std::ifstream ifs2{nomFichier1};
-    if (!ifs2)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-    int taille;
-    ifs2 >> taille;
-   // puissance=std::pow(2,ordre-1);
-      ///code de recuperation en binaire venant d'internet
-      ///http://www.cplusplus.com/reference/algorithm/next_permutation/
-
-
-    for (int i=0; i<taille; ++i){    ///Pareto, premiere partie afin d'optimiser des le debut ordre-1 arete
-    if(i<ordre-1)
-    binaire.push_back(1);
-    else if(i>=ordre-1)
-    binaire.push_back(0);}
-
-
-std::sort(binaire.begin(),binaire.end());  ///tri du vecteur initialiser precedemment
-
-        do {
-        for(int i=0; i<binaire.size() ;++i)
-        {
-            tempon.push_back(binaire[i]);///on push dans la vecteur tempon les differents cas
-        }
-        sauvegarde_binaire.push_back(tempon);///on push dans la vecteur finale qui contient tous les differents cas
-        tempon.clear();///on supprime le vecteur a une dimension pour pouvoir re-affecter des variables, donc des cas differents de binaire grace a la boucle do while
-
-        } while ( std::next_permutation(binaire.begin(),binaire.end()) );
-///FIN DE CODE SOURCE,INSPIRE DU SITE INTERNET
-
-return sauvegarde_binaire;
-}
-
-std::vector<std::vector<double>> graphe::Conversion_binaire_arete(std::string nomFichier,std::string nomFichier1,std::vector<std::vector<double>> arete_pareto_1,std::vector<std::vector<bool>> sauvegarde_binaire)
-{
-    int c=0;
-    std::vector<double> tempon;
-     std::ifstream ifs{nomFichier};
-    if (!ifs)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-    int ordre;
-    ifs >> ordre;
-    std::ifstream ifs2{nomFichier1};
-    if (!ifs2)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier1 );
-    int taille;
-    ifs2 >> taille;
-
-    for(double h=0;h<sauvegarde_binaire.size();++h)
-    {
-        for(int m=0;m<taille;++m)
-        {
-            if((sauvegarde_binaire[h][m])==1)
-            {
-                tempon.push_back(m);
-            }
-        }
-        arete_pareto_1.push_back(tempon);
-        tempon.clear();
-    }
-
-return arete_pareto_1;
-}
-
-
-//std::vector<std::vector<double>> graphe::Pareto(std::string nomFichier,std::string nomFichier1,std::vector<std::vector<double>> arete_pareto_1,std::vector<std::vector<double>> arete_sommet)
 
 graphe::~graphe(){};
 

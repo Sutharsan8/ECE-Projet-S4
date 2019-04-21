@@ -1,66 +1,99 @@
+/**
+ * \file      main.cpp
+ * \author    Sutharsan Sivapalan / Noor Kardache / Evan Kermorgant
+ * \version   1.0
+ * \date       semaine du 15 Avril 2019
+ * \brief       Les bicyclettes de triville
+    Optimisation multi-objectif et circulation douce
+
+ *
+ * \details    Dans le main.cpp on  lance les commandes d'affichages definir par le menu et donc par l'utilisateur
+ */
 #include <iostream>
 #include "graphe.h"
-<<<<<<< HEAD
-#include <algorithm>
-=======
 
-///Une partie du code de recuperation en binaire venant d'internet qui est dans la méthode RECUP_binaire
-///http://www.cplusplus.com/reference/algorithm/next_permutation/
-
->>>>>>> ft_graphfinal
 using namespace std;
 
+std::vector<std::vector<float>> RECUP_coordmoy(std::string nomFichier,std::vector<std::vector<float>> moycoord);
 std::vector<std::vector<double>> RECUP_sommet_c(std::string nomFichier,std::vector<std::vector<double>> sommet_coords);
 std::vector<std::vector<double>> RECUP_arete_s(std::string nomFichier,std::vector<std::vector<double>> arete_sommet);
 std::vector<std::vector<float>> RECUP_arete_p(std::string nomFichier,std::vector<std::vector<float>> arete_ponderation);
-//std::vector<std::vector<double>> Conversion_binaire_arete(std::string nomFichier,std::string nomFichier1,std::vector<std::vector<double>> arete_pareto_1,std::vector<std::vector<bool>> sauvegarde_binaire,std::vector<std::vector<double>> arete_sommet);
+
 
 int main()
 {
     Svgfile svgout;
-    svgout.addRectangle(0,0,500,0,500,500,0,500,"skyblue");
-    svgout.addRectangle(500,500,1000,500,1000,1000,500,1000,"skyblue");
-    svgout.addRectangle(500,0,1000,0,1000,500,500,500,"lightgreen");
-    svgout.addRectangle(0,500,500,500,500,1000,0,1000,"lightgreen");
     std::vector<std::vector<double>> sommet_c;
     std::vector<std::vector<double>> arete_s;
     std::vector<std::vector<float>> arete_p;
-    std::vector<bool> binaire;
-    std::vector<std::vector<bool>> sauvegarde_binaire;
     std::vector<std::vector<double>> arete_pareto_1;
+    std::vector<std::vector<float>> moyco;
+    std::vector<float> couts;
+
 
     sommet_c=RECUP_sommet_c("manhattan.txt",sommet_c);
     arete_s=RECUP_arete_s("manhattan.txt",arete_s);
     arete_p=RECUP_arete_p("manhattan_weights_0.txt",arete_p);
 
-   // arete_pareto_1=Conversion_binaire_arete("manhattan.txt","manhattan_weights_0.txt",arete_pareto_1,sauvegarde_binaire,arete_s);
+    moyco=RECUP_coordmoy("manhattan.txt",moyco);
 
+    ///Recuperation des coordonnées utiles pour dessiner les figures
+    float moyx=(moyco[1][0]-moyco[0][0])/2+moyco[0][0]+250 ;
+    float moyy=(moyco[1][1]-moyco[0][1])/2+moyco[0][1]+250 ;
 
+    ///affichage du fond
+    svgout.addRectangle(0,0,moyx,0,moyx,moyy,0,moyy,"azure");
+    svgout.addRectangle(moyx,moyy,moyx*2,moyy,moyx*2,moyy*2,moyx,moyy*2,"azure");
+    svgout.addRectangle(moyx,0,moyx*2,0,moyx*2,moyy,moyx,moyy,"paleturquoise");
+    svgout.addRectangle(0,moyy,moyx,moyy,moyx,moyy*2,0,moyy*2,"paleturquoise");
+
+    ///Affichage du graphique avec les id des sommets et les id des aretes
     graphe a{"manhattan.txt",1, svgout,sommet_c,arete_s,arete_p};
-    graphe b{"manhattan_weights_0.txt",2, svgout,sommet_c,arete_s,arete_p};
+    ///Affiche du titre du graph
+    svgout.addTexttitre((moyco[1][0]+moyco[0][0])/2,moyco[0][1]-40,"Graphe de manhattan","fill:black;stroke:slategray;font-size:20px; text-anchor:middle;");
 
+    ///Affichage du graphique de Ponderation
+    graphe b{"manhattan_weights_0.txt",2, svgout,sommet_c,arete_s,arete_p};
+    ///Affiche du titre du graph de ponderation
+    svgout.addTexttitre(((moyco[1][0]+moyco[0][0])/2) + 500,moyco[0][1]-40,"Ponderation de manhattan","fill:black;stroke:slategray;font-size:20px; text-anchor:middle;");
+
+    ///On affiche dans la console les données liées au graphe a et b
     a.afficher(1);
     b.afficher(2);
 
-    a.kruskal(1,"manhattan.txt","manhattan_weights_0.txt",svgout,sommet_c,arete_s,arete_p);///PREMIER ARGUMENT CEST POUR LE POIDS,SI KRUSKAL EN FONTCTION DU PREMIER POIDS METTRE 1, SI EN FONCTION DU DEUXIEME POIDS,METTRE 2
-    sauvegarde_binaire=a.RECUP_binaire("manhattan.txt","manhattan_weights_0.txt",binaire,sauvegarde_binaire);
-    arete_pareto_1=a.Conversion_binaire_arete("manhattan.txt","manhattan_weights_0.txt",arete_pareto_1,sauvegarde_binaire);
-   /* for(double h=0;h<sauvegarde_binaire.size();++h) ///TEST POUR SAVOIR SI C RECUPER
-    {
-        std::cout<<"!!!!"<<std::endl;
-        for(double m=0;m<5;++m)
-        {
-            std::cout << arete_pareto_1[h][m]<<";";
-        }
-    }*/
-   /* for(int h=0;h<sauvegarde_binaire.size();++h)
-        for(int m=0;m<3;++m)
-            std::cout << arete_pareto_1[h][m]<<"//////"<<std::endl;
-    return 0;*/
+    ///On recupere les données des couts totaux
+    couts=a.kruskal(1,"manhattan.txt","manhattan_weights_0.txt",svgout,sommet_c,arete_s,arete_p,couts);///PREMIER ARGUMENT CEST POUR LE POIDS,SI KRUSKAL EN FONTCTION DU PREMIER POIDS METTRE 1, SI EN FONCTION DU DEUXIEME POIDS,METTRE 2
+
+     float moyxK=(moyco[0][0]+moyco[1][0])/2;
+     float minyK=moyco[0][1]+500-20;
+     float maxyK=moyco[1][1]+500+50;
+
+     ///On affiche ici les couts totaux
+     svgout.addText(moyxK-30,minyK,"(","blue");
+     svgout.addText(moyxK-20,minyK,couts[0],"blue");
+     svgout.addText(moyxK,minyK,";","blue");
+     svgout.addText(moyxK+10,minyK,couts[1],"blue");
+     svgout.addText(moyxK+30,minyK,")","blue");
+
+     ///Affichage du titre de l'arbre couvrants de poids minimal
+     svgout.addTexttitre(moyxK,maxyK,"Arbre pour manhattan selon l'objectif 1","fill:black;stroke:slategray;font-size:20px; text-anchor:middle;");
+
+     ///On affiche ici les grands titres du projet
+     svgout.addTexttitre(moyx,moyy-10,"PROJET","fill:lightseagreen;stroke:black;font-size:80px; text-anchor:middle;");
+     svgout.addTexttitre(moyx,moyy+20,"Les bicyclettes de manhattan","fill:lightseagreen;stroke:lightseagreen;font-size:20px; text-anchor:middle;");
 }
 
 
-std::vector<std::vector<double>> RECUP_sommet_c(std::string nomFichier,std::vector<std::vector<double>> sommet_coords)
+/**
+ * \brief       Recuperation des sommmets
+ * \details    On stock dans un vecteur de vecteur les donnees des sommets
+               extrait du fichier "nomFichier".
+ * \param    nomFichier         On prend les données selon un fichier precis.
+ * \param    sommet_coords       On stock ici les identifiants des sommets et leurs coordonnées.
+ * \return    Un \e std::vector<std::vector<double>> \b sommet_coords qui contient toutes les données voulu.
+ */
+ std::vector<std::vector<double>> RECUP_sommet_c(std::string nomFichier,std::vector<std::vector<double>> sommet_coords)
+
 {
     double id;
     double x,y;
@@ -85,13 +118,18 @@ std::vector<std::vector<double>> RECUP_sommet_c(std::string nomFichier,std::vect
 return sommet_coords;
 }
 
-
-std::vector<std::vector<double>> RECUP_arete_s(std::string nomFichier,std::vector<std::vector<double>> arete_sommet)
+/**
+ * \brief       Recuperation des données liés aux sommets adjacents (liés par des aretes).
+ * \details    On stock dans un vecteur de vecteur les donnees des aretes
+               extrait du fichier "nomFichier".
+ * \param    nomFichier         On prend les données selon un fichier precis.
+ * \param    aretes_sommet       On stock ici les identifiants des aretes et leurs extrémités.
+ * \return    Un \e std::vector<std::vector<double>> \b aretes_sommet qui contient toutes les données voulu.
+ */
+ std::vector<std::vector<double>> RECUP_arete_s(std::string nomFichier,std::vector<std::vector<double>> arete_sommet)
 {
     double id;
     double x,y;
-    double x1;double y1;
-    double x2;double y2;
     double ordre;
     double id_arete;
     double s_1,s_2;
@@ -131,6 +169,80 @@ std::vector<std::vector<double>> RECUP_arete_s(std::string nomFichier,std::vecto
 return arete_sommet;
 }
 
+/**
+ * \brief       Recuperation des coordonnées moyennes pour dessiner le grahique
+ * \details    On stock dans un vecteur de vecteur les coordonnées les plus petites et les plus grandes.
+               extrait du fichier "nomFichier".
+ * \param    nomFichier         On prend les données selon un fichier precis.
+ * \param    moycoord       On stock ici les coordonnées les plus grandes et les plus petites.
+ * \return    Un \e std::vector<std::vector<double>> \b moycoord qui contient toutes les données voulu.
+ */
+std::vector<std::vector<float>> RECUP_coordmoy(std::string nomFichier,std::vector<std::vector<float>> moycoord)
+{
+    double id;
+    double x,y;
+    double ordre;
+    double maxx,maxy=0;
+    double minx,miny=1000000;
+    std::ifstream ifs{nomFichier};
+    if (!ifs)
+        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
+    ifs >> ordre;///RECUPER LE NOMBRE DE SOMMETS
+    if ( ifs.fail() )
+        throw std::runtime_error("Probleme lecture ordre du graphe");
+    //lecture des sommets
+    for (int i=0; i<ordre; ++i){
+        ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données id");///RECUPERER LA VALEUR DU SOMMET 1
+        ifs>>x; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet1");///RECUPERER COORD X
+        ifs>>y; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet2");///RECUPERER COORD Y
+        moycoord.push_back(std::vector<float>(2));
+        if (i==0)
+        {
+            moycoord[0][0]=x;
+            moycoord[0][1]=y;
+            minx=x;
+            std::cout<<minx<<std::endl;
+            miny=y;
+            std::cout<<miny<<std::endl;
+        }
+        else if (y<miny)
+        {
+            moycoord[0][1]=y;
+            miny=y;
+            std::cout<<miny<<std::endl;
+        }
+        else if (x<minx)
+        {
+            moycoord[0][0]=x;
+            minx=x;
+            std::cout<<minx<<std::endl;
+        }
+        else if (x>maxx)
+        {
+            moycoord[1][0]=x;
+            maxx=x;
+            std::cout<<maxx<<std::endl;
+        }
+        else if (y>maxy)
+        {
+            moycoord[1][1]=y;
+            maxy=y;
+            std::cout<<maxy<<std::endl;
+        }
+        }
+
+    return moycoord;
+}
+
+/**
+ * \brief       Recuperation des ponderations des aretes
+ * \details    On stock dans un vecteur de vecteur les ponderations des aretes
+               extrait du fichier "nomFichier".
+ * \param    nomFichier         On prend les données selon un fichier precis.
+ * \param    arete_ponderation       On stock ici les identifiants des aretes et leurs ponderations.
+ * \return    Un \e std::vector<std::vector<float>> \b arete_ponderation qui contient toutes les données voulu.
+ */
+
 std::vector<std::vector<float>> RECUP_arete_p(std::string nomFichier,std::vector<std::vector<float>> arete_ponderation)
 {
     std::ifstream ifs{nomFichier};
@@ -159,88 +271,4 @@ std::vector<std::vector<float>> RECUP_arete_p(std::string nomFichier,std::vector
         }
 return arete_ponderation;
 }
-
-
-
-/*std::vector<std::vector<bool>> RECUP_binaire(std::string nomFichier,std::string nomFichier1,std::vector<bool> binaire,std::vector<std::vector<bool>> sauvegarde_binaire)
-{
-    std::vector<bool> tempon;
-    int compte=0;
-    std::ifstream ifs{nomFichier};
-    if (!ifs)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-    int ordre;
-    ifs >> ordre;
-    std::ifstream ifs2{nomFichier1};
-    if (!ifs2)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-    int taille;
-    ifs2 >> taille;
-   // puissance=std::pow(2,ordre-1);
-      ///code de recuperation en binaire venant d'internet
-      ///http://www.cplusplus.com/reference/algorithm/next_permutation/
-
-
-    for (int i=0; i<taille; ++i){    ///Pareto, premiere partie afin d'optimiser des le debut ordre-1 arete
-    if(i<ordre-1)
-    binaire.push_back(1);
-    else if(i>=ordre-1)
-    binaire.push_back(0);}
-
-
-std::sort(binaire.begin(),binaire.end());  ///tri du vecteur initialiser precedemment
-
-        do {
-        for(int i=0; i<binaire.size() ;++i)
-        {
-            tempon.push_back(binaire[i]);///on push dans la vecteur tempon les differents cas
-        }
-        sauvegarde_binaire.push_back(tempon);///on push dans la vecteur finale qui contient tous les differents cas
-        tempon.clear();///on supprime le vecteur a une dimension pour pouvoir re-affecter des variables, donc des cas differents de binaire grace a la boucle do while
-
-        } while ( std::next_permutation(binaire.begin(),binaire.end()) );
-///FIN DE CODE SOURCE,INSPIRE DU SITE INTERNET
-
-
-return sauvegarde_binaire;
-}*/
-
-
-/*std::vector<std::vector<double>> Conversion_binaire_arete(std::string nomFichier,std::string nomFichier1,std::vector<std::vector<double>> arete_pareto_1,std::vector<std::vector<bool>> sauvegarde_binaire,std::vector<std::vector<double>> arete_sommet)
-{
-    int c=0;
-     std::ifstream ifs{nomFichier};
-    if (!ifs)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-    int ordre;
-    ifs >> ordre;
-    std::ifstream ifs2{nomFichier1};
-    if (!ifs2)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier1 );
-    int taille;
-    ifs2 >> taille;
-
-    for(double h=0;h<sauvegarde_binaire.size();++h)
-    {
-        std::cout<<std::endl;
-        for(double m=0;m<taille;++m)
-        {
-            std::cout << sauvegarde_binaire[h][m]<<";";
-            if((sauvegarde_binaire[h][m])==1)
-            {
-                arete_pareto_1[h][c]=m;
-                ++c;
-            }
-        }
-    }
-    for(int h=0;h<sauvegarde_binaire.size();++h)
-        for(int m=0;m<ordre-1;++m)
-            std::cout << arete_pareto_1[h][m]<<"//////"<<std::endl;
-return arete_pareto_1;
-}
-*/
-
-
-
-
 

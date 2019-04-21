@@ -1,3 +1,7 @@
+ /**
+ * \details    Dans le svgfile.h on declare les methodes et variables necessaire pour affichées les données des graphes
+  */
+
 #ifndef SVGFILE_H_INCLUDED
 #define SVGFILE_H_INCLUDED
 
@@ -26,9 +30,9 @@ class Svgfile
         void addLineEp(double x1, double y1, double x2, double y2, double ep, std::string color=defcol);
 
         void addCross(double x, double y, double span, std::string color=defcol);
-        void addTree(double x, double y,double r, std::string color=defcol);
         void addText(double x, double y, std::string text, std::string color=defcol);
         void addText(double x, double y, double val, std::string color=defcol);
+        void addTexttitre(double x, double y, std::string text, std::string style);
         void addCurve();
         void addSoleil( double r, std::string color=defcol);
         void addRectangle(double x1, double y1, double x2, double y2,

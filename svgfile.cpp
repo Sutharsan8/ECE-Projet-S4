@@ -1,3 +1,7 @@
+ /**
+ * \details    Dans le svgfile.cpp on defini les methodes necessaire pour affichées les données des graphes
+  */
+
 #include "svgfile.h"
 #include <iostream>
 #include <sstream>
@@ -271,21 +275,6 @@ void Svgfile::addRectangle(double x1, double y1, double x2, double y2,
             << "\" />\n";
 }
 
-void Svgfile :: addTree(double x, double y,double r, std::string colorFill)
-{
-
-
-
-
-    addRectangle(x, y, x+6, y, x+6, y+40,x, y+40, "black");
-    addDisk(x+3,y-20,r, colorFill);
-    addCircle(x+3,y-20, r,1, "black");
-
-
-
-
-}
-
 void Svgfile::addTriangle(double x1, double y1, double x2, double y2,
                           double x3, double y3, std::string colorFill)
 {
@@ -335,6 +324,16 @@ void Svgfile::addText(double x, double y, std::string text, std::string color)
             << attrib("x", x)
             << attrib("y", y)
             << attrib("fill", color)
+            << ">" << text << "</text>\n";
+}
+
+void Svgfile::addTexttitre(double x, double y, std::string text , std::string style)
+{
+    /// <text x="180" y="60" style="fill:yellow;stroke:#abcdef;font-size:50px;">Un texte</text> //on recupere cette stucture sur https://openclassrooms.com/fr/courses/201787-le-svg/201785-le-texte
+    m_ostrm << "<text "
+            << attrib("x", x)
+            << attrib("y", y)
+            << attrib("style", style)
             << ">" << text << "</text>\n";
 }
 
