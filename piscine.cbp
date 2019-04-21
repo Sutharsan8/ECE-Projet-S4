@@ -35,8 +35,6 @@
 		</Compiler>
 		<Unit filename="arete.cpp" />
 		<Unit filename="arete.h" />
-		<Unit filename="arete_poids.cpp" />
-		<Unit filename="arete_poids.h" />
 		<Unit filename="graphe.cpp" />
 		<Unit filename="graphe.h" />
 		<Unit filename="main.cpp" />
